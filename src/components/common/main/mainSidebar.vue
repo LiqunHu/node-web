@@ -14,51 +14,56 @@
       </div>
     </div>
     <!-- sidebar menu: : style can be found in sidebar.less -->
-    <ul class="sidebar-menu">
+    <ul class="sidebar-menu" data-widget="tree">
       <li class="header">主菜单</li>
       <template v-for="item in userinfo.menulist">
           <li class="treeview">
             <template v-if="item.menu_type === '01'">
               <router-link :to="item.menu_path">
-                <i v-bind:class="'fa ' + item.menu_icon "></i> <span>{{ item.menu_name }}</span>
+                <i v-bind:class="'fa ' + item.menu_icon "></i>
+                <span>{{ item.menu_name }}</span>
                 <span class="pull-right-container">
-                  <small class="label pull-right bg-green">new</small>
+                  <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </router-link>
             </template>
-      <template v-if="item.menu_type === '00'">
-        <a href="#">
-          <i :class="'fa ' + item.menu_icon"></i> <span> {{ item.menu_name }}</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <template v-for="sItem in item.sub_menu" v-if="sItem.show_flag === '1'">
-            <template v-if="sItem.menu_type === '01' && sItem.show_flag === '1'">
-              <li>
-                <router-link :to="sItem.menu_path"><i class="fa fa-circle-o"></i> {{ sItem.menu_name }}</router-link>
-              </li>
+            <template v-if="item.menu_type === '00'">
+              <a href="#">
+                <i :class="'fa ' + item.menu_icon"></i>
+                <span> {{ item.menu_name }}</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <template v-for="sItem in item.sub_menu" v-if="sItem.show_flag === '1'">
+                  <template v-if="sItem.menu_type === '01' && sItem.show_flag === '1'">
+                    <li>
+                      <router-link :to="sItem.menu_path">
+                        <i class="fa fa-circle-o">
+                        </i> {{ sItem.menu_name }}
+                      </router-link>
+                    </li>
+                  </template>
+                  <template v-if="sItem.menu_type === '00'">
+                    <li class="treeview">
+                      <a href="#"><i :class="'fa '+ sItem.menu_icon"></i> {{ sItem.menu_name }}
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                      </a>
+                      <ul class="treeview-menu">
+                        <template v-for="ssItem in sItem.sub_menu">
+                          <li><router-link :to="ssItem.menu_path"><i class="fa fa-circle-o"></i> {{ ssItem.menu_name }}</router-link></li>
+                        </template>
+                      </ul>
+                    </li>
+                  </template>
+                </template>
+              </ul>
             </template>
-      <template v-if="sItem.menu_type === '00'">
-        <li class="treeview">
-          <a href="#"><i :class="'fa '+ sItem.menu_icon"></i> {{ sItem.menu_name }}
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu" style="display: none;">
-            <template v-for="ssItem in sItem.sub_menu">
-              <li><router-link :to="ssItem.menu_path"><i class="fa fa-circle-o"></i> {{ ssItem.menu_name }}</router-link></li>
-            </template>
-    </ul>
-    </li>
-    </template>
-    </template>
-    </ul>
-    </template>
-    </li>
-    </template>
+          </li>
+        </template>
     </ul>
   </section>
   <!-- /.sidebar -->
@@ -74,7 +79,6 @@ export default {
     }
   },
   mounted: function() {
-    console.log('mainMenu created!')
   }
 }
 </script>

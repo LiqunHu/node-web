@@ -4,10 +4,9 @@
   <div class="wrapper">
     <main-header></main-header>
     <main-sidebar></main-sidebar>
-    <!-- begin #content -->
-    <div id="content" class="content">
-      <router-view></router-view>
-    </div>
+
+    <!-- Content Wrapper. Contains page content -->
+    <router-view/>
   </div>
   <!-- end page container -->
 </div>
@@ -27,6 +26,7 @@ export default {
     $('body').addClass('hold-transition')
     $('body').addClass('skin-blue')
     $('body').addClass('sidebar-mini')
+    // $('body').resize()
   }
 }
 </script>

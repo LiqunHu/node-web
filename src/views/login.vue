@@ -68,9 +68,11 @@ export default {
       }).then((response) => {
         let token = response.headers.authorization
         if (token) {
+          let userinfo = response.data.info
+          if (!userinfo.avatar) userinfo.avatar = '/static/images/base/head.jpg'
           common.clearStoreData()
           common.setStoreData('token', token)
-          common.setStoreData('userinfo', response.data.info)
+          common.setStoreData('userinfo', userinfo)
           _self.$router.push({
             path: '/common/system/home'
           })
