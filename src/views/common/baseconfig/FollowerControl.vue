@@ -36,7 +36,7 @@
 </div>
 </template>
 <script>
-const common = require('commonFunc')
+const common = require('@/lib/common')
 const apiUrl = '/api/common/baseconfig/FollowerControl?method='
 
 export default {

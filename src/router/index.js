@@ -1,17 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import starter from '@/components/starter'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  scrollBehavior: () => ({y: 0}),
   routes: [
     { path: '*', component: resolve => require(['@/components/err404'], resolve) },
-    { path: '/',                redirect: '/login' },
-    { path: '/error404',        component: resolve => require(['@/components/err404'], resolve) },
-    { path: '/error401',        component: resolve => require(['@/components/err401'], resolve) },
-    { path: '/error',           component: resolve => require(['@/components/errpage'], resolve) },
-    { path: '/login',           component: resolve => require(['@/views/login'], resolve) }
+    { path: '/', redirect: '/login' },
+    { path: '/error404', component: resolve => require(['@/components/err404'], resolve) },
+    { path: '/error401', component: resolve => require(['@/components/err401'], resolve) },
+    { path: '/error', component: resolve => require(['@/components/errpage'], resolve) },
+    { path: '/login', component: resolve => require(['@/views/login'], resolve) },
+    { path: '/common/system',
+      component: resolve => require(['@/components/mainSystem'], resolve),
+      children: [
+        { path: 'home', component: resolve => require(['@/views/home'], resolve) }
+        // { path: 'SystemApiControl', component: resolve => require(['@/views/common/system/SystemApiControl'], resolve) },
+        // { path: 'DomainTemplateControl', component: resolve => require(['@/views/common/system/DomainTemplateControl'], resolve) },
+        // { path: 'DomainControl', component: resolve => require(['@/views/common/system/DomainControl'], resolve) },
+        // { path: 'DomainGroupControl', component: resolve => require(['@/views/common/system/DomainGroupControl'], resolve) },
+        // { path: 'OperatorControl', component: resolve => require(['@/views/common/system/OperatorControl'], resolve) },
+        // { path: 'SysGroupApiControl', component: resolve => require(['@/views/common/system/SysGroupApiControl'], resolve) },
+        // { path: 'UserSetting', component: resolve => require(['@/views/common/system/UserSetting'], resolve) },
+        // { path: 'ResetPassword', component: resolve => require(['@/views/common/system/ResetPassword'], resolve) }
+      ]}
   ]
 })

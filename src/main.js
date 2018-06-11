@@ -20,9 +20,9 @@ let axiosConfig = {
   timeout: 5000 // request timeout
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  axiosConfig.baseURL = process.env.BASE_API
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   axiosConfig.baseURL = process.env.BASE_API
+// }
 
 const instance = axios.create(axiosConfig)
 // Add a request interceptor

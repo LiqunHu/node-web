@@ -49,7 +49,7 @@
 </div>
 </template>
 <script>
-let common = require('commonFunc')
+const common = require('@/lib/common')
 const apiUrl = '/api/common/components/DomainSelectDialogControl?method=';
 
 export default {

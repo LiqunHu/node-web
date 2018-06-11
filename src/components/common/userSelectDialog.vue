@@ -33,7 +33,7 @@
 </div>
 </template>
 <script>
-const common = require('commonFunc');
+const common = require('@/lib/common');
 const apiUrl = '/api/common/components/userSelectDialogControl?method=';
 
 export default {

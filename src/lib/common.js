@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import CryptoJS from 'crypto-js'
+import store from 'store'
 
 // window.Parsley
 //     .addValidator('phone', {
@@ -13,11 +14,6 @@ import CryptoJS from 'crypto-js'
 //             'zh-cn': '请输入正确的手机号码'
 //         }
 //     })
-
-// 两端去空格函数
-String.prototype.trim = function () {
-  return this.replace(/(^\s*)|(\s*$)/g, '')
-}
 
 exports.convertBase64StrToArray = function (base64Str) {
   let bytes = window.atob(base64Str) // 去掉url的头，并转换为byte
@@ -78,8 +74,8 @@ exports.BrowserType = function () {
       return 'IE11'
     } else {
       return '0'
-    } //IE版本过低
-  } //isIE end
+    } // IE版本过低
+  } // isIE end
 
   if (isFF) {
     return 'FF'
@@ -135,7 +131,7 @@ exports.setStoreData = function (key, value) {
   store.set(key, value)
 }
 
-function getStoreData(key) {
+function getStoreData (key) {
   return store.get(key)
 }
 exports.getStoreData = getStoreData
@@ -252,8 +248,8 @@ exports.dealSuccessCommon = function (message, time) {
     var wait = 3
     timeOut()
 
-    function timeOut() {
-      if (wait != 0) {
+    function timeOut () {
+      if (wait !== 0) {
         setTimeout(function () {
           $('.second').text(--wait)
           timeOut()
@@ -265,7 +261,6 @@ exports.dealSuccessCommon = function (message, time) {
     dlg.close()
   }, 4000)
 }
-
 
 exports.dealPromptCommon = function (message) {
   BootstrapDialog.show({
@@ -371,7 +366,7 @@ exports.initSelect2Editable = function (jqItem, sdata) {
 
 exports.getSelect2Val = function (key) {
   let item = $('#' + key).val()
-  if (!item || item.length != 1) {
+  if (!item || item.length !== 1) {
     return ''
   } else {
     return item[0]
@@ -379,7 +374,7 @@ exports.getSelect2Val = function (key) {
 }
 
 exports.getSelect2Text = function (key) {
-  return $('#' + key).find("option:selected").text()
+  return $('#' + key).find('option:selected').text()
 }
 
 exports.initSelect2Width = function (jqItem, sdata, width) {
@@ -468,7 +463,7 @@ exports.initStartDatepicker = function (start, end) {
     language: 'zh-CN',
     autoclose: true,
     todayHighlight: true,
-    format: 'yyyy-mm-dd',
+    format: 'yyyy-mm-dd'
   }).on('changeDate', function (e) {
     var startTime = e.date
     end.datepicker('setStartDate', startTime)
@@ -479,7 +474,7 @@ exports.initEndDatepicker = function (end, start) {
     language: 'zh-CN',
     autoclose: true,
     todayHighlight: true,
-    format: 'yyyy-mm-dd',
+    format: 'yyyy-mm-dd'
   }).on('changeDate', function (e) {
     var endTime = e.date
     start.datepicker('setEndDate', endTime)
@@ -487,31 +482,31 @@ exports.initEndDatepicker = function (end, start) {
 }
 
 exports.NCAPrint = function (printPara) {
-  printJS("/api/nca/print?" + $.param(printPara))
+  printJS('/api/nca/print?' + $.param(printPara))
 }
 
 exports.imagesFileUpload = function (_self, obj, row, url, key, method, tbobj) {
-  let maxsize = 2 * 1024 * 1024 //2M
+  let maxsize = 2 * 1024 * 1024 // 2M
   let files = _self.files
   let oldRow = $.extend(true, {}, row)
-  let fileTypes = new Array('jpg', 'jpeg', 'png', 'gif', 'bmp')
+  let fileTypes = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
   if (files.length > 0) {
     for (let i = 0; i < files.length; i++) {
       let filename = files[i].name
       let nameSplit = filename.split('.')
       let postfix = nameSplit[nameSplit.length - 1]
       let fileTypeFlag = '0'
-      for (let idx = 0; idx < fileTypes.length; idx++) {　　
-        if (fileTypes[idx] === postfix) {　　　　
-          fileTypeFlag = '1'　　
+      for (let idx = 0; idx < fileTypes.length; idx++) {
+        if (fileTypes[idx] === postfix) {
+          fileTypeFlag = '1'
         }
       }
-      if (fileTypeFlag === '0') {　
-        alert('图片文件必须是jpg、jpeg、png、gif、bmp')　
+      if (fileTypeFlag === '0') {
+        alert('图片文件必须是jpg、jpeg、png、gif、bmp')
         return
       }
-      if (files[i].size > maxsize) {　
-        alert('最大只允许上传2M的文件')　
+      if (files[i].size > maxsize) {
+        alert('最大只允许上传2M的文件')
         return
       }
       let formData = new FormData()
@@ -558,11 +553,10 @@ exports.fileFileUpload = function (_self, obj, row, url, method, table, key) {
   let files = _self.files
   let maxsize = 2 * 1024 * 1024 // 2M
   let oldRow = $.extend(true, {}, row)
-  let fileTypes = new Array('pdf')
   if (files.length > 0) {
     for (let i = 0; i < files.length; i++) {
-      if (files[i].size > maxsize) {　
-        alert('最大只允许上传2M的文件')　
+      if (files[i].size > maxsize) {
+        alert('最大只允许上传2M的文件')
         return
       }
 
@@ -594,12 +588,10 @@ exports.fileFileUpload = function (_self, obj, row, url, method, table, key) {
   }
 }
 
-
 exports.fileFileUploadRefresh = function (_self, obj, row, url, method, table, key) {
   let files = _self.files
   let maxsize = 2 * 1024 * 1024 // 2M
   let oldRow = $.extend(true, {}, row)
-  let fileTypes = new Array('pdf')
   if (files.length > 0) {
     for (let i = 0; i < files.length; i++) {
       if (files[i].size > maxsize) {
@@ -699,7 +691,6 @@ exports.rowModifyWithT = function (_self, act, row, key, tb) {
     'old': _self.oldRow,
     'new': row
   }).then((response) => {
-
     let updaterow = response.data.info
     tb.bootstrapTable('updateByUniqueId', {
       id: row[key],
@@ -716,7 +707,6 @@ exports.rowModifyWithT = function (_self, act, row, key, tb) {
       row: _self.oldRow
     })
     tb.bootstrapTable('resetView')
-
   })
 }
 
@@ -859,26 +849,9 @@ exports.filesFormatterWithUpload = function (value, row) {
   return retString
 }
 
-
-exports.imagesFormatter2 = function (value, row, index) {
-  var retString = '<div class="form-inline" role="form">'
-  if (value.length > 0) {
-    retString += '<div class="form-group image-set">'
-    for (var key in value) {
-      retString += '<a class="box-image-link" href="' + value[0].file_url + '" data-lightbox="' + index + '">'
-      retString += '<img class="box-image" src="' + value[0].file_url + '"></a>'
-    }
-    retString += '</div>'
-  }
-  retString += '<span class="form-group fileupload-button">'
-  retString += '<i class="glyphicon glyphicon-plus"></i>'
-  retString += '<input class="imageupload" type="file" name="file">'
-  retString += '</span></div>'
-  return retString
-}
 // 获取文件后缀名
-function getFileExt(str) {
-  let index1 = str.lastIndexOf(".")
+function getFileExt (str) {
+  let index1 = str.lastIndexOf('.')
   if (index1 === -1) {
     return ''
   }
@@ -915,7 +888,7 @@ exports.operateFormatter = function (value, row, index) {
   return [
     '<a class="tableDelete" title="删除">',
     '<i class="glyphicon glyphicon-remove"></i>',
-    '</a>',
+    '</a>'
     // '<a class="btn btn-primary btn-xs m-r-5 tableDelete btn-info-delete">删除</a>',
   ].join('')
 }
@@ -1052,7 +1025,7 @@ exports.BTRowFormatEdSelect = function (_self, rowid, rowname, paraIndex) {
       display: function (value, sourceData) {
         let showText = ''
         $(sourceData).each(function () {
-          if (this.id == value) {
+          if (this.id === value) {
             showText = this.text
             return false
           }
@@ -1171,7 +1144,7 @@ exports.BTRowFormatEdSelectW = function (_self, rowid, rowname, paraIndex, width
       display: function (value, sourceData) {
         let showText = ''
         $(sourceData).each(function () {
-          if (this.id == value) {
+          if (this.id === value) {
             showText = this.text
             return false
           }
@@ -1199,7 +1172,7 @@ exports.BTRowFormatEdSelect2 = function (_self, rowid, rowname, paraIndex, width
       display: function (value) {
         let showText = ''
         $(_self.pagePara[paraIndex]).each(function () {
-          if (this.id == value) {
+          if (this.id === value) {
             if (this.name) {
               showText = this.name
             } else {
@@ -1232,7 +1205,7 @@ exports.BTRowFormatEdSelect2Disabled = function (_self, rowid, rowname, paraInde
       display: function (value) {
         let showText = ''
         $(_self.pagePara[paraIndex]).each(function () {
-          if (this.id == value) {
+          if (this.id === value) {
             if (this.name) {
               showText = this.name
             } else {
@@ -1246,7 +1219,6 @@ exports.BTRowFormatEdSelect2Disabled = function (_self, rowid, rowname, paraInde
     }
   }
 }
-
 
 exports.BTRowFormatEdNum = function (rowid, rowname) {
   return {
@@ -1383,7 +1355,6 @@ exports.BTRowFormatWithFEW = function (rowid, rowname, rFormatter, e, width) {
     formatter: rFormatter,
     events: e,
     width,
-    width,
     class: 'text-nowrap',
     align: 'center',
     valign: 'middle'
@@ -1446,7 +1417,7 @@ exports.BTRowFormatFooter = function (rowid, rowname, footerForamte) {
     class: 'text-nowrap',
     align: 'left',
     valign: 'middle',
-    footerFormatter: footerForamte,
+    footerFormatter: footerForamte
   }
 }
 
@@ -1454,14 +1425,13 @@ exports.DynamicEditableByDomain = function (_self, table) {
   $('[data-uniqueid]').each(function () {
     let actrow = table.bootstrapTable('getRowByUniqueId', this.getAttribute('data-uniqueid'))
     if (actrow.domain_id) {
-      if (actrow.domain_id != _self.userinfo.domain_id) {
+      if (actrow.domain_id !== _self.userinfo.domain_id) {
         $(this).find('[data-name]').each(function () {
           $(this).attr('data-disabled', true)
         })
       }
     }
   })
-
 }
 
 exports.getApiName = function (apiUrl) {
@@ -1483,7 +1453,7 @@ exports.getUrlParams = function (name) {
 exports.setTablePageActive = function (nowPage) {
   $('.pagination').find('.page-number').each(function () {
     let val = parseInt($(this).children().html())
-    if (val == nowPage) {
+    if (val === nowPage) {
       $(this).addClass('active')
       return false
     }
@@ -1527,8 +1497,8 @@ exports.unitConversion = function (value, row) {
 }
 
 exports.importLoading = function (status) {
-  if (status == 'show') {
-    if ($('body  *').hasClass("loading-model")) {
+  if (status === 'show') {
+    if ($('body  *').hasClass('loading-model')) {
       $('.loading-model').css('display', 'block')
     } else {
       let retString = '<div class="loading-model">'

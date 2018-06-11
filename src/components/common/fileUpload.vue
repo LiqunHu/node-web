@@ -18,7 +18,7 @@
 </template>
 
 <script type="text/babel">
-const common = require('commonFunc');
+const common = require('@/lib/common');
 export default {
   name: 'fileupload',
   props: {
