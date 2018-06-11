@@ -43,7 +43,7 @@ const common = require('@/lib/common')
 
 export default {
   name: 'login',
-  data: function () {
+  data: function() {
     return {
       username: '',
       password: '',
@@ -51,13 +51,13 @@ export default {
       isA: true
     }
   },
-  mounted: function () {
+  mounted: function() {
     $('body').removeClass()
     $('body').addClass('hold-transition')
     $('body').addClass('login-page')
   },
   methods: {
-    login: function (event) {
+    login: function(event) {
       let _self = this
       let encInfo = common.aesEncryptModeCFB(this.username, this.password)
       _self.$http.post('/api/auth', {
@@ -65,7 +65,7 @@ export default {
         identifyCode: encInfo[1],
         magicNo: encInfo[0],
         loginType: 'WEB'
-      }).then((response) => {
+      }).then(function(response) {
         let token = response.headers.authorization
         if (token) {
           let userinfo = response.data.info
@@ -81,10 +81,10 @@ export default {
           _self.isA = false
           common.clearStoreData()
         }
-      }, (response) => {
-        // error callback
-        this.errorMessage = '用户名或者密码错误'
-        this.isA = false
+      }).catch(function(error) {
+        console.log(33333)
+        _self.errorMessage = '用户名或者密码错误'
+        _self.isA = false
         common.clearStoreData()
       })
     }

@@ -30,7 +30,7 @@ instance.interceptors.request.use(function (config) {
   // Do something before request is sent
   let token = store.get('token')
   if (typeof (token) === 'string') {
-    Vue.http.headers.common['authorization'] = token
+    config.headers['authorization'] = token
   }
   return config
 }, function (error) {
