@@ -26,7 +26,8 @@ export default {
     $('body').addClass('hold-transition')
     $('body').addClass('skin-blue')
     $('body').addClass('sidebar-mini')
-    // $('body').resize()
+    $(window).resize()
+    $('.sidebar-menu').tree()
   }
 }
 </script>

@@ -28,7 +28,7 @@
               </router-link>
             </template>
             <template v-if="item.menu_type === '00'">
-              <a href="#">
+              <a>
                 <i :class="'fa ' + item.menu_icon"></i>
                 <span> {{ item.menu_name }}</span>
                 <span class="pull-right-container">
