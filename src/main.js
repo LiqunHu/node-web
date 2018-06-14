@@ -4,14 +4,26 @@ import Vue from 'vue'
 import axios from 'axios'
 import App from './App'
 import router from './router'
+import store from './store'
 import './lib/jquery-vender.js'
+
+// user plugin
 import 'bootstrap'
-import 'admin-lte'
-import store from 'store'
 import 'bootstrap/dist/css/bootstrap.css'
+import 'select2'
+import 'select2/dist/css/select2.min.css'
+import 'ztree'
+import 'ztree/css/metroStyle/metroStyle.css'
 import 'font-awesome/css/font-awesome.css'
+import 'admin-lte'
 import 'admin-lte/dist/css/AdminLTE.min.css'
 import 'admin-lte/dist/css/skins/_all-skins.min.css'
+import 'bootstrap3-dialog'
+import 'bootstrap3-dialog/dist/css/bootstrap-dialog.min.css'
+import 'parsleyjs'
+import 'parsleyjs/dist/i18n/zh_cn.js'
+
+import * as common from './lib/common.js'
 import './assets/css/ui.css'
 
 Vue.config.productionTip = false
@@ -29,7 +41,7 @@ const instance = axios.create(axiosConfig)
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
   // Do something before request is sent
-  let token = store.get('token')
+  let token = common.getStoreData('token')
   if (typeof (token) === 'string') {
     config.headers['authorization'] = token
   }
@@ -53,6 +65,7 @@ Vue.prototype.$http = instance
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: {
     App

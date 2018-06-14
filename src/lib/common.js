@@ -131,7 +131,7 @@ exports.setStoreData = function (key, value) {
   store.set(key, value)
 }
 
-function getStoreData (key) {
+function getStoreData(key) {
   return store.get(key)
 }
 exports.getStoreData = getStoreData
@@ -160,40 +160,54 @@ exports.createWebSocket = function () {
   return websocket
 }
 
-exports.dealErrorCommon = function (obj, response) {
-  if (response.status > 699 && response.status < 800) {
-    console.log('700 error')
-    BootstrapDialog.show({
-      title: '<i class= "fa fa-fw fa-info-circle"></i><strong>错误信息</strong>',
-      cssClass: 'modal-danger',
-      message: '<i class="text-warning fa fa-fw fa-warning" style="font-size: 40px"></i>' + response.data.msg,
-      buttons: [{
-        label: '<i class= "fa fa-fw fa-close"></i>关闭',
-        cssClass: 'btn-outline',
-        action: function (dialogItself) {
-          dialogItself.close()
-        }
-      }]
-    })
-  } else if (response.status === 404) {
-    obj.$router.push({
-      path: '/error404'
-    })
-  } else if (response.status === 401) {
-    if (response.data.errno === -2) {
-      obj.setError('从其他地方登录', '从其他地方登录')
-    } else {
-      obj.setError('未经授权：访问由于凭据无效被拒绝', '未经授权：访问由于凭据无效被拒绝')
-    }
+exports.dealErrorCommon = function (obj, res) {
+  let response = res.response
+  if (response) {
+    if (response.status > 699 && response.status < 800) {
+      console.log('700 error')
+      BootstrapDialog.show({
+        title: '<i class= "fa fa-fw fa-info-circle"></i><strong>错误信息</strong>',
+        cssClass: 'modal-danger',
+        message: '<i class="text-warning fa fa-fw fa-warning" style="font-size: 40px"></i>' + response.data.msg,
+        buttons: [{
+          label: '<i class= "fa fa-fw fa-close"></i>关闭',
+          cssClass: 'btn-outline',
+          action: function (dialogItself) {
+            dialogItself.close()
+          }
+        }]
+      })
+    } else if (response.status === 404) {
+      obj.$router.push({
+        path: '/common/system/error404'
+      })
+    } else if (response.status === 401) {
+      if (response.data.errno === -2) {
+        obj.$store.dispatch('setError', {
+          errCode: '从其他地方登录',
+          errMsg: '从其他地方登录'
+        })
+      } else {
+        obj.$store.dispatch('setError', {
+          errCode: '未经授权：访问由于凭据无效被拒绝',
+          errMsg: '未经授权：访问由于凭据无效被拒绝'
+        })
+      }
 
-    obj.$router.push({
-      path: '/error401'
-    })
+      obj.$router.push({
+        path: '/common/system/error401'
+      })
+    } else {
+      obj.$store.dispatch('setError', {
+        errCode: response.status,
+        errMsg: response
+      })
+      obj.$router.push({
+        path: '/common/system/error'
+      })
+    }
   } else {
-    obj.setError(response.status, response)
-    obj.$router.push({
-      path: '/error'
-    })
+    console.log(res)
   }
 }
 
@@ -248,7 +262,7 @@ exports.dealSuccessCommon = function (message, time) {
     var wait = 3
     timeOut()
 
-    function timeOut () {
+    function timeOut() {
       if (wait !== 0) {
         setTimeout(function () {
           $('.second').text(--wait)
@@ -300,15 +314,12 @@ exports.changeTableClass = function (tableObj) {
 }
 
 exports.reSizeCall = function () {
-  let topOffset = 190
-  let height = $(window).height()
-  let toolbar = $('.panel-toolbar')
-  let toolbarHeight = 0
-  if (toolbar) {
-    toolbarHeight = toolbar.height()
-  }
-  $('.auto-height').height(height - toolbarHeight - topOffset)
-  $('.hidedesk').show()
+  $('.fixed-table-container').resize(function () {
+    $('#table').bootstrapTable('resetView')
+  })
+  $('.content-wrapper').trigger('resize')
+  // $('.content').height($(window).height() - 97)
+  // $('.content').show()
 }
 
 exports.getTableHeight = function () {
@@ -850,7 +861,7 @@ exports.filesFormatterWithUpload = function (value, row) {
 }
 
 // 获取文件后缀名
-function getFileExt (str) {
+function getFileExt(str) {
   let index1 = str.lastIndexOf('.')
   if (index1 === -1) {
     return ''

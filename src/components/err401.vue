@@ -1,36 +1,56 @@
 <template>
-<div>
-  <!-- begin #page-loader -->
-  <div id="page-loader" class="fade in"><span class="spinner"></span></div>
-  <!-- end #page-loader -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">error</a></li>
+        <li class="active">401 error</li>
+      </ol>
+    </section>
 
-  <!-- begin #page-container -->
-  <div id="page-container" class="fade">
-    <!-- begin error -->
-    <div class="error">
-      <div class="error-code m-b-10">401 <i class="fa fa-warning"></i></div>
-      <div class="error-content">
-        <div class="error-message">{{ errCode }}</div>
-        <div class="error-desc m-b-20">
-          由于用户匿名访问使用的账号(默认是IUSR_机器名)被禁用. <br /> 或者没有权限访问计算机，将造成用户无法访问.
-        </div>
-        <div>
-          <a href="/" class="btn btn-success">Go Back to Home Page</a>
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="error-page">
+        <h2 class="headline text-red">401</h2>
+
+        <div class="error-content">
+          <h3><i class="fa fa-warning text-red"></i>  Oops! Something went wrong.</h3>
+
+          <p>
+            由于用户匿名访问使用的账号(默认是IUSR_机器名)被禁用. <br /> 或者没有权限访问计算机，将造成用户无法访问. <a href="/">return to dashboard</a>
+          </p>
+
+          <form class="search-form">
+            <div class="input-group">
+              <input type="text" name="search" class="form-control" placeholder="Search">
+
+              <div class="input-group-btn">
+                <button type="submit" name="submit" class="btn btn-danger btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.input-group -->
+          </form>
         </div>
       </div>
-    </div>
-    <!-- end error -->
+      <!-- /.error-page -->
+
+    </section>
+    <!-- /.content -->
   </div>
-  <!-- end page container -->
-</div>
 </template>
 <script>
 import {
   mapGetters
 } from 'vuex'
+const common = require('@/lib/common')
 export default {
   name: 'err401',
-  mounted: function() {},
+  mounted: function() {
+    common.reSizeCall()
+  },
   computed: mapGetters({
     errCode: 'errCode',
     errMsg: 'errMsg'

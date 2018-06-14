@@ -1,43 +1,37 @@
 <template>
-<div>
-  <!-- begin breadcrumb -->
-  <ol class="breadcrumb pull-right">
-    <li><a href="javascript:;">系统管理</a></li>
-    <li class="active">系统菜单维护</li>
-  </ol>
-  <!-- end breadcrumb -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-inverse">
-        <div class="panel-heading">
-          <div class="panel-heading-btn">
-            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-          </div>
-          <h4 class="panel-title">系统菜单维护</h4>
-        </div>
-        <div class="panel-toolbar">
-          <div class="form-inline">
-            <div class="form-group">
+<div class="content-wrapper">
+  <section class="content-header">
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+      <li class="active">系统菜单维护</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-info">
+          <div class="box-body">
+            <div class="form-inline">
               <div class="form-group">
-                <button class="btn btn-primary btn-info" v-on:click="addF">
-                                  <i class="glyphicon glyphicon-plus"></i> 增加目录
-                              </button>
-                <button class="btn btn-primary btn-info" v-on:click="addM">
-                                  <i class="glyphicon glyphicon-plus"></i> 增加菜单
-                              </button>
-                <button class="btn btn-primary btn-info" v-on:click="editNode">
-                                  <i class="glyphicon glyphicon-plus"></i> 编辑
-                              </button>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-info" v-on:click="addF">
+                      <i class="glyphicon glyphicon-plus"></i> 增加目录
+                  </button>
+                  <button class="btn btn-primary btn-info" v-on:click="addM">
+                      <i class="glyphicon glyphicon-plus"></i> 增加菜单
+                  </button>
+                  <button class="btn btn-primary btn-info" v-on:click="editNode">
+                      <i class="glyphicon glyphicon-plus"></i> 编辑
+                  </button>
+                </div>
               </div>
             </div>
+            <ul id="tree" class="ztree"></ul>
           </div>
-        </div>
-        <div class="panel-body hidedesk" style="display:none;">
-          <ul id="tree" class="ztree"></ul>
         </div>
       </div>
     </div>
-  </div>
+  </section>
   <div class="modal fade" id="FModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -56,8 +50,8 @@
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-info">
-                          <i class="fa fa-fw fa-plus"></i>提交
-                      </button>
+                <i class="fa fa-fw fa-plus"></i>提交
+            </button>
           </div>
         </form>
       </div>
@@ -91,8 +85,8 @@
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-info">
-                            <i class="fa fa-fw fa-plus"></i>提交
-                        </button>
+                <i class="fa fa-fw fa-plus"></i>提交
+            </button>
           </div>
         </form>
       </div>
@@ -101,8 +95,8 @@
 </div>
 </template>
 <script>
-const common = require('@/lib/common');
-const apiUrl = '/api/common/system/SystemApiControl?method=';
+const common = require('@/lib/common')
+const apiUrl = '/api/common/system/SystemApiControl?method='
 
 export default {
   data: function() {
@@ -115,57 +109,51 @@ export default {
   },
   name: 'MenuControl',
   mounted: function() {
-    let _self = this;
-
-    function iconDisplayFormatter(value, row) {
-      return '<i class="fa fa-fw ' + row.iconSource + '"></i>'
-    }
+    let _self = this
 
     async function initPage() {
       try {
-        let response = await _self.$http.post(apiUrl + 'init', {});
-        let retData = response.data.info;
-        _self.pagePara = JSON.parse(JSON.stringify(retData));
+        let response = await _self.$http.post(apiUrl + 'init', {})
+        let retData = response.data.info
+        _self.pagePara = JSON.parse(JSON.stringify(retData))
         common.initSelect2($('#auth_flag'), retData.authInfo)
         common.initSelect2($('#show_flag'), retData.tfInfo)
         _self.getData()
         $('#formF').parsley()
         $('#formM').parsley()
-        common.reSizeCall();
+        common.reSizeCall()
         console.log('init success')
       } catch (error) {
-        common.dealErrorCommon(_self, error);
+        common.dealErrorCommon(_self, error)
       }
     }
 
-    $(function() {
-      initPage()
-    });
+    initPage()
   },
   methods: {
     getData: async function(event) {
       let _self = this
       try {
-        let response = await _self.$http.post(apiUrl + 'search', {});
-        let zNodes = response.data.info;
-        let treeObj = $.fn.zTree.init($("#tree"), {}, zNodes);
-        treeObj.expandAll(true);
+        let response = await _self.$http.post(apiUrl + 'search', {})
+        let zNodes = response.data.info
+        let treeObj = $.fn.zTree.init($('#tree'), {}, zNodes)
+        treeObj.expandAll(true)
       } catch (error) {
-        common.dealErrorCommon(_self, error);
+        common.dealErrorCommon(_self, error)
       }
     },
     addF: function(event) {
       let _self = this
       _self.workRow = {}
       _self.workRow.systemmenu_name = ''
-      let nodeObj = $.fn.zTree.getZTreeObj("tree").getSelectedNodes();
+      let nodeObj = $.fn.zTree.getZTreeObj('tree').getSelectedNodes()
       if (nodeObj && nodeObj.length > 0) {
-        if (nodeObj[0].getPath().length > 4) return common.dealWarningCommon("系统最多只支持4级菜单");
-        if (nodeObj[0].node_type === '01') return common.dealWarningCommon("菜单下不允许新增");
-        _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]));
-      } else return common.dealWarningCommon("请选择一个节点");
+        if (nodeObj[0].getPath().length > 4) return common.dealWarningCommon('系统最多只支持4级菜单')
+        if (nodeObj[0].node_type === '01') return common.dealWarningCommon('菜单下不允许新增')
+        _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]))
+      } else return common.dealWarningCommon('请选择一个节点')
       $('#formF').parsley().reset()
-      _self.act = '1';
+      _self.act = '1'
       $('#FModal').modal('show')
     },
     submitF: async function(event) {
@@ -175,15 +163,15 @@ export default {
           _self.workRow.parent_id = _self.actNode.systemmenu_id
 
           if (_self.act === '1') {
-            let response = await _self.$http.post(apiUrl + 'addFolder', _self.workRow);
+            await _self.$http.post(apiUrl + 'addFolder', _self.workRow)
           } else {
-            let response = await _self.$http.post(apiUrl + 'modifyFolder', _self.workRow);
+            await _self.$http.post(apiUrl + 'modifyFolder', _self.workRow)
           }
-          $('#FModal').modal('hide');
+          $('#FModal').modal('hide')
           _self.getData()
         }
       } catch (error) {
-        common.dealErrorCommon(_self, error);
+        common.dealErrorCommon(_self, error)
       }
     },
     addM: function(event) {
@@ -194,13 +182,13 @@ export default {
       $('#auth_flag').val(null).trigger('change')
       $('#show_flag').val(null).trigger('change')
 
-      let nodeObj = $.fn.zTree.getZTreeObj("tree").getSelectedNodes();
+      let nodeObj = $.fn.zTree.getZTreeObj('tree').getSelectedNodes()
       if (nodeObj && nodeObj.length > 0) {
-        if (nodeObj[0].node_type === '01') return common.dealWarningCommon("菜单下不允许新增");
-        _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]));
-      } else return common.dealWarningCommon("请选择一个节点");
+        if (nodeObj[0].node_type === '01') return common.dealWarningCommon('菜单下不允许新增')
+        _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]))
+      } else return common.dealWarningCommon('请选择一个节点')
       $('#formM').parsley().reset()
-      _self.act = '1';
+      _self.act = '1'
       $('#MModal').modal('show')
     },
     submitM: async function(event) {
@@ -211,25 +199,27 @@ export default {
           _self.workRow.auth_flag = common.getSelect2Val('auth_flag')
           _self.workRow.show_flag = common.getSelect2Val('show_flag')
           if (_self.act === '1') {
-            let response = await _self.$http.post(apiUrl + 'addMenu', _self.workRow);
+            await _self.$http.post(apiUrl + 'addMenu', _self.workRow)
           } else {
-            let response = await _self.$http.post(apiUrl + 'modifyMenu', _self.workRow);
+            await _self.$http.post(apiUrl + 'modifyMenu', _self.workRow)
           }
-          $('#MModal').modal('hide');
+          $('#MModal').modal('hide')
           _self.getData()
         }
       } catch (error) {
-        common.dealErrorCommon(_self, error);
+        common.dealErrorCommon(_self, error)
       }
     },
     editNode: async function(event) {
       let _self = this
       try {
-        let nodeObj = $.fn.zTree.getZTreeObj("tree").getSelectedNodes();
-        if (nodeObj && nodeObj.length > 0)
-          _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]));
-        else return common.dealWarningCommon("请选择一个节点");
-        _self.act = '2';
+        let nodeObj = $.fn.zTree.getZTreeObj('tree').getSelectedNodes()
+        if (nodeObj && nodeObj.length > 0) {
+          _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]))
+        } else {
+          return common.dealWarningCommon('请选择一个节点')
+        }
+        _self.act = '2'
         if (nodeObj[0].node_type === '00') {
           _self.workRow = {}
           _self.workRow.systemmenu_id = nodeObj[0].systemmenu_id
@@ -252,7 +242,7 @@ export default {
           $('#MModal').modal('show')
         }
       } catch (error) {
-        common.dealErrorCommon(_self, error);
+        common.dealErrorCommon(_self, error)
       }
     }
   }
