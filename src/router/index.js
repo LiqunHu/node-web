@@ -16,8 +16,8 @@ export default new Router({
       children: [
         { path: 'home', component: resolve => require(['@/views/home'], resolve) },
         { path: 'error401', component: resolve => require(['@/components/err401'], resolve) },
-        { path: 'SystemApiControl', component: resolve => require(['@/views/common/system/SystemApiControl'], resolve) }
-        // { path: 'DomainTemplateControl', component: resolve => require(['@/views/common/system/DomainTemplateControl'], resolve) },
+        { path: 'SystemApiControl', component: resolve => require(['@/views/common/system/SystemApiControl'], resolve) },
+        { path: 'DomainTemplateControl', component: resolve => require(['@/views/common/system/DomainTemplateControl'], resolve) }
         // { path: 'DomainControl', component: resolve => require(['@/views/common/system/DomainControl'], resolve) },
         // { path: 'DomainGroupControl', component: resolve => require(['@/views/common/system/DomainGroupControl'], resolve) },
         // { path: 'OperatorControl', component: resolve => require(['@/views/common/system/OperatorControl'], resolve) },

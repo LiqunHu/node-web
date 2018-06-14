@@ -318,7 +318,7 @@ exports.reSizeCall = function () {
   $('.fixed-table-container').resize(function () {
     $('#table').bootstrapTable('resetView')
   })
-  $('.content-wrapper').trigger('resize')
+  $(window).resize()
   // $('.content').height($(window).height() - 97)
   // $('.content').show()
 }
