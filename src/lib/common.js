@@ -319,24 +319,24 @@ exports.reSizeCall = function () {
     $('#table').bootstrapTable('resetView')
   })
   $(window).resize()
-  // $('.content').height($(window).height() - 97)
   // $('.content').show()
 }
 
 exports.getTableHeight = function () {
   let topOffset = 210
   let height = $(window).height()
-  let toolbar = $('.panel-toolbar')
+  let toolbar = $('.margin')
   let toolbarHeight = 0
   if (toolbar) {
     toolbarHeight = toolbar.height()
   }
-  let navtabs = $('.nav-tabs')
-  let navtabsHeight = 0
-  if (navtabs) {
-    navtabsHeight = 40
-  }
-  height = height - toolbarHeight - navtabsHeight - topOffset
+  // let navtabs = $('.nav-tabs')
+  // let navtabsHeight = 0
+  // if (navtabs) {
+  //   navtabsHeight = 40
+  // }
+  height = height - toolbarHeight - topOffset
+  console.log(333)
   return height
 }
 

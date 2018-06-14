@@ -11,7 +11,7 @@
       <div class="col-xs-12">
         <div class="box box-info">
           <div class="box-body">
-            <div class="form-inline">
+            <div class="margin form-inline">
               <div class="form-group">
                 <div class="form-group">
                   <button class="btn btn-primary btn-info" v-on:click="addT">
@@ -20,10 +20,10 @@
                 </div>
               </div>
             </div>
-            <div class="vertical-box-column bg-silver width-200">
+            <div class="col-md-3">
               <table class="table" id="templateTable"></table>
             </div>
-            <div class="vertical-box-column">
+            <div class="col-md-9">
               <div class="col-md-5" style="overflow:hidden">
                 <h5>系统功能</h5>
                 <ul id="systemtree" class="ztree"></ul>
@@ -31,13 +31,13 @@
               <div class="col-md-7">
                 <div class="col-md-1 modal-height vertical-container">
                   <div class="btn-group-vertical">
-                    <button type="button" class="btn btn-primary btn-icon" @click="addMenu"><i class="icon-arrow-right"></i></button>
+                    <button type="button" class="btn btn-primary btn-icon" @click="addMenu"><i class="glyphicon glyphicon-chevron-right"></i></button>
                   </div>
                 </div>
                 <div class="col-md-11">
                   <h5>模板功能</h5>
                   <div class="btn-group">
-                    <a class="btn btn-default buttons-copy buttons-html5 btn-xs" @click="addF"><span>增加目录</span></a>
+                    <a class="btn btn-block btn-default btn-sm" @click="addF"><span>增加目录</span></a>
                   </div>
                   <div>
                     <ul id="templatetree" class="ztree"></ul>
@@ -437,4 +437,13 @@ export default {
 }
 </script>
 <style scoped>
+.vertical-container {
+  height: 300px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
 </style>

@@ -11,7 +11,7 @@
       <div class="col-xs-12">
         <div class="box box-info">
           <div class="box-body">
-            <div class="form-inline">
+            <div class="margin form-inline">
               <div class="form-group">
                 <div class="form-group">
                   <button class="btn btn-primary btn-info" v-on:click="addF">

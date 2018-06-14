@@ -82,7 +82,6 @@ export default {
           common.clearStoreData()
         }
       }).catch(function(error) {
-        console.log(33333)
         _self.errorMessage = '用户名或者密码错误'
         _self.isA = false
         common.clearStoreData()
