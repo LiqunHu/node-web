@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import CryptoJS from 'crypto-js'
 import store from 'store'
+import BootstrapDialog from 'bootstrap3-dialog'
 
 // window.Parsley
 //     .addValidator('phone', {
