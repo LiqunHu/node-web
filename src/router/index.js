@@ -18,8 +18,8 @@ export default new Router({
         { path: 'error401', component: resolve => require(['@/components/err401'], resolve) },
         { path: 'SystemApiControl', component: resolve => require(['@/views/common/system/SystemApiControl'], resolve) },
         { path: 'DomainTemplateControl', component: resolve => require(['@/views/common/system/DomainTemplateControl'], resolve) },
-        { path: 'DomainControl', component: resolve => require(['@/views/common/system/DomainControl'], resolve) }
-        // { path: 'DomainGroupControl', component: resolve => require(['@/views/common/system/DomainGroupControl'], resolve) },
+        { path: 'DomainControl', component: resolve => require(['@/views/common/system/DomainControl'], resolve) },
+        { path: 'DomainGroupControl', component: resolve => require(['@/views/common/system/DomainGroupControl'], resolve) }
         // { path: 'OperatorControl', component: resolve => require(['@/views/common/system/OperatorControl'], resolve) },
         // { path: 'SysGroupApiControl', component: resolve => require(['@/views/common/system/SysGroupApiControl'], resolve) },
         // { path: 'UserSetting', component: resolve => require(['@/views/common/system/UserSetting'], resolve) },

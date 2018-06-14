@@ -37,7 +37,7 @@
 </template>
 <script>
 const common = require('@/lib/common')
-const apiUrl = '/api/common/system/SysGroupApiControl?method='
+const apiUrl = '/api/common/system/DomainGroupApiControl?method='
 
 export default {
   data: function() {
@@ -45,7 +45,7 @@ export default {
       pagePara: {}
     }
   },
-  name: 'systemGroupMenuControl',
+  name: 'domainGroupMenuControl',
   mounted: function() {
     let _self = this
 
