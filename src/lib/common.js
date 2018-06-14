@@ -315,10 +315,10 @@ exports.changeTableClass = function (tableObj) {
 }
 
 exports.reSizeCall = function () {
-  $('.fixed-table-container').resize(function () {
-    $('#table').bootstrapTable('resetView')
-  })
-  $(window).resize()
+  // $('.fixed-table-container').resize(function () {
+  //   $('#table').bootstrapTable('resetView')
+  // })
+  // $(window).resize()
   // $('.content').show()
 }
 

@@ -6,7 +6,9 @@
     <main-sidebar></main-sidebar>
 
     <!-- Content Wrapper. Contains page content -->
-    <router-view/>
+    <div class="content-wrapper">
+      <router-view/>
+    </div>
   </div>
   <!-- end page container -->
 </div>

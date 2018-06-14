@@ -1,5 +1,5 @@
 <template>
-<div class="content-wrapper">
+<div>
   <section class="content-header">
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
