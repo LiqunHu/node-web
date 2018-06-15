@@ -121,7 +121,6 @@ export default {
         _self.getData()
         $('#formF').parsley()
         $('#formM').parsley()
-        common.reSizeCall()
         console.log('init success')
       } catch (error) {
         common.dealErrorCommon(_self, error)

@@ -1,22 +1,16 @@
 <template>
 <div>
-  <!-- begin breadcrumb -->
-  <ol class="breadcrumb pull-right">
-    <li><a href="javascript:;">系统管理</a></li>
-    <li class="active">员工维护</li>
-  </ol>
-  <!-- end breadcrumb -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-inverse">
-        <div class="panel-heading">
-          <div class="panel-heading-btn">
-            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-          </div>
-          <h4 class="panel-title">员工维护</h4>
-        </div>
-        <div class="panel-toolbar">
-          <div class="form-inline" role="form">
+  <section class="content-header">
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+      <li class="active">员工维护</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="col-lg-12">
+      <div class="box box-info">
+        <div class="box-body">
+          <div class="margin form-inline">
             <div class="form-group">
               <input class="form-control" id="search_text" placeholder="搜索用户名、姓名、电话" style="width: 200px;">
             </div>
@@ -25,17 +19,15 @@
             </div>
             <div class="form-group  pull-right">
               <button id="addM" class="btn btn-info" v-on:click="addM">
-                            <i class="glyphicon glyphicon-plus"></i> 新增员工
-                        </button>
+                  <i class="glyphicon glyphicon-plus"></i> 新增员工
+              </button>
             </div>
           </div>
-        </div>
-        <div class="panel-body auto-height hidedesk" style="display:none;">
           <table id="table"></table>
         </div>
       </div>
     </div>
-  </div>
+  </section>
   <div class="modal fade" id="AddModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -92,15 +84,6 @@ export default {
     let _self = this
     let $table = $('#table')
 
-    function userGroupFormatter(value, row) {
-      for (let i = 0; i < _self.pagePara['groupInfo'].length; i++) {
-        if (_self.pagePara.groupInfo[i].usergroup_id === parseInt(value)) {
-          return _self.pagePara.groupInfo[i].text
-        }
-      }
-      return ''
-    }
-
     function initTable() {
       window.tableEvents = {
         'click .tableDelete': function(e, value, row, index) {
@@ -109,7 +92,7 @@ export default {
       }
 
       function queryParams(params) {
-        params.search_text = $('#search_text').val();
+        params.search_text = $('#search_text').val()
         return JSON.stringify(params)
       }
       $table.bootstrapTable({
@@ -119,7 +102,7 @@ export default {
         sidePagination: 'server',
         ajaxOptions: common.bootstrapTableAjaxOtions,
         responseHandler: function(res) {
-          return res.info;
+          return res.info
         },
         height: common.getTableHeight(),
         columns: [
@@ -155,7 +138,6 @@ export default {
         common.initSelect2($('#usergroup_id'), retData.groupInfo)
         initTable()
         $('#formA').parsley()
-        common.reSizeCall()
         console.log('init success')
       }, (response) => {
         console.log('init error')
@@ -169,7 +151,7 @@ export default {
   },
   methods: {
     search: function(event) {
-      $('#table').bootstrapTable("refresh")
+      $('#table').bootstrapTable('refresh')
     },
     addM: function(event) {
       let _self = this
@@ -193,7 +175,6 @@ export default {
           $('#formA').parsley().reset()
           common.dealSuccessCommon('增加成功')
         }, (response) => {
-          console.log('add error')
           common.dealErrorCommon(_self, response)
         })
       }

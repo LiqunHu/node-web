@@ -1,38 +1,30 @@
 <template>
 <div>
-  <!-- begin breadcrumb -->
-  <ol class="breadcrumb pull-right">
-    <li><a href="javascript:;">系统管理</a></li>
-    <li class="active">系统组菜单维护</li>
-  </ol>
-  <!-- end breadcrumb -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-inverse">
-        <div class="panel-heading">
-          <div class="panel-heading-btn">
-            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-          </div>
-          <h4 class="panel-title">系统组菜单维护</h4>
-        </div>
-        <div class="panel-toolbar">
-          <div class="form-inline" role="form">
+  <section class="content-header">
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+      <li class="active">系统组菜单维护</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="col-lg-12">
+      <div class="box box-info">
+        <div class="box-body">
+          <div class="margin form-inline">
             <div class="form-group" style="width:200px">
               <select class="form-control select2" multiple id="userGroupID"> </select>
             </div>
             <div class="form-group">
               <button id="modify" class="btn btn-success btn-info" v-on:click="modify" disabled>
-                              <i class="glyphicon glyphicon-ok"></i> 提交
-                          </button>
+                  <i class="glyphicon glyphicon-ok"></i> 提交
+              </button>
             </div>
           </div>
-        </div>
-        <div class="panel-body hidedesk" style="display:none;">
           <ul id="domaintree" class="ztree"></ul>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </div>
 </template>
 <script>
@@ -51,81 +43,76 @@ export default {
 
     function initPage() {
       _self.$http.post(apiUrl + 'init', {}).then((response) => {
-        let retData = response.data.info;
-        let groupSelector = $('#userGroupID');
-        _self.pagePara = JSON.parse(JSON.stringify(retData));
+        let retData = response.data.info
+        let groupSelector = $('#userGroupID')
+        _self.pagePara = JSON.parse(JSON.stringify(retData))
 
-        let treeObj = $.fn.zTree.init($("#domaintree"), {
+        let treeObj = $.fn.zTree.init($('#domaintree'), {
           check: {
             enable: true,
             chkboxType: {
-              "Y": "ps",
-              "N": "ps"
+              'Y': 'ps',
+              'N': 'ps'
             }
           }
-        }, retData.menuInfo);
-        treeObj.expandAll(true);
+        }, retData.menuInfo)
+        treeObj.expandAll(true)
 
-        common.initSelect2(groupSelector, retData['groupInfo']);
+        common.initSelect2(groupSelector, retData['groupInfo'])
         groupSelector.on('select2:select', function(evt) {
-          getCheckData();
+          getCheckData()
           $('#modify').prop('disabled', false)
-        });
+        })
 
-        common.reSizeCall();
         console.log('init success')
       }, (response) => {
-        console.log('init error');
         common.dealErrorCommon(_self, response)
       })
     }
 
     function getCheckData() {
-      let userGroupID = $('#userGroupID').val();
+      let userGroupID = $('#userGroupID').val()
       _self.$http.post(apiUrl + 'search', {
         usergroup_id: userGroupID[0]
       }).then((response) => {
         let retData = response.data.info
-        let domaintreeObj = $.fn.zTree.getZTreeObj("domaintree");
-        domaintreeObj.checkAllNodes(false);
-        let nodes = domaintreeObj.getCheckedNodes(false);
+        let domaintreeObj = $.fn.zTree.getZTreeObj('domaintree')
+        domaintreeObj.checkAllNodes(false)
+        let nodes = domaintreeObj.getCheckedNodes(false)
         domaintreeObj.setting.check.chkboxType = {
-          "Y": "p",
-          "N": "ps"
+          'Y': 'p',
+          'N': 'ps'
         }
 
         for (let i = 0; i < nodes.length; i++) {
           for (let j = 0; j < retData.groupMenu.length; j++) {
             if (nodes[i].domainmenu_id === retData.groupMenu[j]) {
-              domaintreeObj.checkNode(nodes[i], true, true, false);
-              break;
+              domaintreeObj.checkNode(nodes[i], true, true, false)
+              break
             }
           }
         }
 
         domaintreeObj.setting.check.chkboxType = {
-          "Y": "ps",
-          "N": "ps"
+          'Y': 'ps',
+          'N': 'ps'
         }
-
       }, (response) => {
         // error callback
-        console.log('get data error')
         common.dealErrorCommon(_self, response)
       })
     }
 
-    $(function() {
-      initPage()
-    })
+    initPage()
   },
   methods: {
     modify: function(event) {
+      let _self = this
       let userGroupID = $('#userGroupID').val()
       if (!userGroupID) {
         common.dealPromptCommon('未选定用户组，不能分配菜单')
       } else {
-        let domaintreeObj = $.fn.zTree.getZTreeObj("domaintree");
+        let domaintreeObj = $.fn.zTree.getZTreeObj('domaintree')
         let nodes = domaintreeObj.getCheckedNodes(true)
         this.$http.post(apiUrl + 'modify', {
           'usergroup_id': userGroupID[0],
@@ -133,9 +120,7 @@ export default {
         }).then((response) => {
           common.dealPromptCommon('选定用户组的菜单已分配，请重新登录查看')
         }, (response) => {
-          // error callback
-          console.log('get data error')
-          common.dealErrorCommon(this, response)
+          common.dealErrorCommon(_self, response)
         })
       }
     }

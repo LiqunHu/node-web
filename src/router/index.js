@@ -19,9 +19,9 @@ export default new Router({
         { path: 'SystemApiControl', component: resolve => require(['@/views/common/system/SystemApiControl'], resolve) },
         { path: 'DomainTemplateControl', component: resolve => require(['@/views/common/system/DomainTemplateControl'], resolve) },
         { path: 'DomainControl', component: resolve => require(['@/views/common/system/DomainControl'], resolve) },
-        { path: 'DomainGroupControl', component: resolve => require(['@/views/common/system/DomainGroupControl'], resolve) }
-        // { path: 'OperatorControl', component: resolve => require(['@/views/common/system/OperatorControl'], resolve) },
-        // { path: 'SysGroupApiControl', component: resolve => require(['@/views/common/system/SysGroupApiControl'], resolve) },
+        { path: 'DomainGroupControl', component: resolve => require(['@/views/common/system/DomainGroupControl'], resolve) },
+        { path: 'DomainGroupApiControl', component: resolve => require(['@/views/common/system/DomainGroupApiControl'], resolve) },
+        { path: 'OperatorControl', component: resolve => require(['@/views/common/system/OperatorControl'], resolve) }
         // { path: 'UserSetting', component: resolve => require(['@/views/common/system/UserSetting'], resolve) },
         // { path: 'ResetPassword', component: resolve => require(['@/views/common/system/ResetPassword'], resolve) }
       ]}

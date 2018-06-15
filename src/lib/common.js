@@ -314,16 +314,8 @@ exports.changeTableClass = function (tableObj) {
   })
 }
 
-exports.reSizeCall = function () {
-  // $('.fixed-table-container').resize(function () {
-  //   $('#table').bootstrapTable('resetView')
-  // })
-  // $(window).resize()
-  // $('.content').show()
-}
-
 exports.getTableHeight = function () {
-  let topOffset = 210
+  let topOffset = 150
   let height = $(window).height()
   let toolbar = $('.margin')
   let toolbarHeight = 0
@@ -336,7 +328,6 @@ exports.getTableHeight = function () {
   //   navtabsHeight = 40
   // }
   height = height - toolbarHeight - topOffset
-  console.log(333)
   return height
 }
 

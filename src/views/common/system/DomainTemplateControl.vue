@@ -240,7 +240,6 @@ export default {
         _self.getTemplateData()
         $('#formT').parsley()
         $('#formF').parsley()
-        common.reSizeCall()
         console.log('init success')
       } catch (error) {
         common.dealErrorCommon(_self, error)
