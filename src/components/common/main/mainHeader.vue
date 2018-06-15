@@ -34,7 +34,7 @@
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <router-link to="/system/userSetting" class="btn btn-default btn-flat">设置</router-link>
+                <router-link to="/common/system/userSetting" class="btn btn-default btn-flat">设置</router-link>
               </div>
               <div class="pull-right">
                 <button class="btn btn-default btn-flat" v-on:click="logout">签退</button>

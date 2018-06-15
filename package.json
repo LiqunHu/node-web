@@ -27,6 +27,7 @@
     "X-editable": "^1.5.1",
     "parsleyjs": "^2.8.1",
     "distpicker": "^2.0.4",
+    "cropper": "^4.0.0",
     "vue": "^2.5.16",
     "axios": "^0.18.0",
     "vue-router": "^3.0.1",
