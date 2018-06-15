@@ -36,142 +36,144 @@
       </div>
       <!-- /.col -->
       <div class="col-md-9">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#settings" data-toggle="tab">设置</a></li>
-          <li><a href="#passset" data-toggle="tab">修改密码</a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="settings">
-            <div class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">头像</label>
-                <div class="col-sm-10">
-                  <div class="container" id="crop-avatar" style="padding-left: 0;">
-                    <!-- Current avatar -->
-                    <div class="avatar-view" title="" data-original-title="Change the avatar">
-                      <img :src="userinfo.avatar" alt="Avatar">
-                    </div>
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#settings" data-toggle="tab">设置</a></li>
+            <li><a href="#passset" data-toggle="tab">修改密码</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="settings">
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">头像</label>
+                  <div class="col-sm-10">
+                    <div class="container" id="crop-avatar" style="padding-left: 0;">
+                      <!-- Current avatar -->
+                      <div class="avatar-view" title="" data-original-title="Change the avatar">
+                        <img :src="userinfo.avatar" alt="Avatar">
+                      </div>
 
-                    <!-- Cropping modal -->
-                    <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1" style="display: none;">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <form class="avatar-form" enctype="multipart/form-data" method="post">
-                            <div class="modal-header">
-                              <button class="close" data-dismiss="modal" type="button">×</button>
-                              <h4 class="modal-title" id="avatar-modal-label">更换头像</h4>
-                            </div>
-                            <div class="modal-body">
-                              <div class="avatar-body">
-                                <!-- Upload image and data -->
-                                <div class="avatar-upload">
-                                  <input class="avatar-src" name="avatar_src" type="hidden">
-                                  <input class="avatar-data" name="avatar_data" type="hidden" value="">
-                                  <label for="avatarInput">头像上传</label>
-                                  <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
-                                </div>
+                      <!-- Cropping modal -->
+                      <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1" style="display: none;">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <form class="avatar-form" enctype="multipart/form-data" method="post">
+                              <div class="modal-header">
+                                <button class="close" data-dismiss="modal" type="button">×</button>
+                                <h4 class="modal-title" id="avatar-modal-label">更换头像</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="avatar-body">
+                                  <!-- Upload image and data -->
+                                  <div class="avatar-upload">
+                                    <input class="avatar-src" name="avatar_src" type="hidden">
+                                    <input class="avatar-data" name="avatar_data" type="hidden" value="">
+                                    <label for="avatarInput">头像上传</label>
+                                    <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                  </div>
 
-                                <!-- Crop and preview -->
-                                <div class="row">
-                                  <div class="col-md-9">
-                                    <div class="avatar-wrapper"></div>
+                                  <!-- Crop and preview -->
+                                  <div class="row">
+                                    <div class="col-md-9">
+                                      <div class="avatar-wrapper"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="avatar-preview preview-lg" style="width: 184px; height: 184px;"></div>
+                                      <div class="avatar-preview preview-md" style="width: 100px; height: 100px;"></div>
+                                      <div class="avatar-preview preview-sm" style="width: 50px; height: 50px;"></div>
+                                    </div>
                                   </div>
-                                  <div class="col-md-3">
-                                    <div class="avatar-preview preview-lg" style="width: 184px; height: 184px;"></div>
-                                    <div class="avatar-preview preview-md" style="width: 100px; height: 100px;"></div>
-                                    <div class="avatar-preview preview-sm" style="width: 50px; height: 50px;"></div>
-                                  </div>
-                                </div>
 
-                                <div class="row avatar-btns">
-                                  <div class="col-md-9">
-                                    <!--
-                                      <div class="btn-group">
-                                        <button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">左转</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15度</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30度</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45度</button>
-                                      </div>
-                                      <div class="btn-group">
-                                        <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">右转</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15度</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30度</button>
-                                        <button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45度</button>
-                                      </div>
-                                    -->
-                                  </div>
-                                  <div class="col-md-3">
-                                    <button class="btn btn-info avatar-save" type="submit">完成</button>
+                                  <div class="row avatar-btns">
+                                    <div class="col-md-9">
+                                      <!--
+                                        <div class="btn-group">
+                                          <button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">左转</button>
+                                          <button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15度</button>
+                                          <button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30度</button>
+                                          <button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45度</button>
+                                        </div>
+                                        <div class="btn-group">
+                                          <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">右转</button>
+                                          <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15度</button>
+                                          <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30度</button>
+                                          <button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45度</button>
+                                        </div>
+                                      -->
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button class="btn btn-info avatar-save" type="submit">完成</button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </form>
+                            </form>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <!-- /.modal -->
+                      <!-- /.modal -->
 
-                    <!-- Loading state -->
-                    <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                      <!-- Loading state -->
+                      <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">用户名</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="userinfo.username" placeholder="用户名" disabled>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">姓名</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="userinfo.name" placeholder="姓名">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">手机</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="userinfo.phone" placeholder="手机">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-info" v-on:click="changeInfo">提交</button>
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">用户名</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" v-model="userinfo.username" placeholder="用户名" disabled>
+            </div>
+            <div class="tab-pane" id="passset">
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <label for="oldPassword" class="col-sm-2 control-label">原密码</label>
+                  <div class="col-sm-5">
+                    <input type="password" class="form-control" v-model="oldPassword" placeholder="原密码">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">姓名</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" v-model="userinfo.name" placeholder="姓名">
+                <div class="form-group">
+                  <label for="password" class="col-sm-2 control-label">新密码</label>
+                  <div class="col-sm-5">
+                    <input type="password" class="form-control" v-model="password" placeholder="新密码">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">手机</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" v-model="userinfo.phone" placeholder="手机">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">再次输入</label>
+                  <div class="col-sm-5">
+                    <input type="password" class="form-control" v-model="repassword" placeholder="再次输入">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button class="btn btn-info" v-on:click="changeInfo">提交</button>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-info" v-on:click="changePwd">提交</button>
+                  </div>
                 </div>
               </div>
             </div>
+            <!-- /.tab-pane -->
           </div>
-          <div class="tab-pane" id="passset">
-            <div class="form-horizontal">
-              <div class="form-group">
-                <label for="oldPassword" class="col-sm-2 control-label">原密码</label>
-                <div class="col-sm-5">
-                  <input type="password" class="form-control" v-model="oldPassword" placeholder="原密码">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="password" class="col-sm-2 control-label">新密码</label>
-                <div class="col-sm-5">
-                  <input type="password" class="form-control" v-model="password" placeholder="新密码">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">再次输入</label>
-                <div class="col-sm-5">
-                  <input type="password" class="form-control" v-model="repassword" placeholder="再次输入">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button class="btn btn-info" v-on:click="changePwd">提交</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.tab-pane -->
+          <!-- /.tab-content -->
         </div>
-        <!-- /.tab-content -->
       </div>
       <!-- /.col -->
     </div>
