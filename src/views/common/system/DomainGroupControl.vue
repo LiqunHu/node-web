@@ -83,7 +83,7 @@ const common = require('@/lib/common')
 const apiUrl = '/api/common/system/DomainGroupControl?method='
 
 export default {
-  data: function() {
+  data: function () {
     return {
       pagePara: {},
       tableData: [],
@@ -93,7 +93,7 @@ export default {
     }
   },
   name: 'groupControl',
-  mounted: function() {
+  mounted: function () {
     let _self = this
 
     async function initPage() {
@@ -124,7 +124,7 @@ export default {
     initPage()
   },
   methods: {
-    getData: async function(event) {
+    getData: async function (event) {
       let _self = this
       try {
         let response = await _self.$http.post(apiUrl + 'search', {})
@@ -135,7 +135,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addDep: function(event) {
+    addDep: function (event) {
       let _self = this
       let nodeObj = $.fn.zTree.getZTreeObj('tree').getSelectedNodes()
       if (nodeObj && nodeObj.length > 0) {
@@ -149,7 +149,7 @@ export default {
       $('#formDep').parsley().reset()
       $('#DepModal').modal('show')
     },
-    submitDep: async function(event) {
+    submitDep: async function (event) {
       let _self = this
       try {
         if ($('#formDep').parsley().isValid()) {
@@ -175,7 +175,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addPos: function(event) {
+    addPos: function (event) {
       let _self = this
       let nodeObj = $.fn.zTree.getZTreeObj('tree').getSelectedNodes()
       if (nodeObj && nodeObj.length > 0) {
@@ -194,7 +194,7 @@ export default {
       $('#formPos').parsley().reset()
       $('#PosModal').modal('show')
     },
-    submitPos: async function(event) {
+    submitPos: async function (event) {
       let _self = this
       try {
         if ($('#formPos').parsley().isValid()) {
@@ -224,7 +224,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    editNode: async function(event) {
+    editNode: async function (event) {
       let _self = this
       async function getCheckData() {
         let response = await _self.$http.post(apiUrl + 'getcheck', {

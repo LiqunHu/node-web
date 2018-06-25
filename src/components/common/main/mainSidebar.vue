@@ -78,8 +78,7 @@ export default {
       userinfo: common.getStoreData('userinfo')
     }
   },
-  mounted: function() {
-  }
+  mounted: function() {}
 }
 </script>
 <style scoped>

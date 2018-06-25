@@ -60,7 +60,7 @@ const common = require('@/lib/common');
 const CryptoJS = require('crypto-js');
 const apiUrl = '/api/common/system/ResetPassword?method=';
 export default {
-  data: function() {
+  data: function () {
     return {
       pagePara: {},
       rowData: {},
@@ -68,7 +68,7 @@ export default {
     }
   },
   name: 'ResetPassword',
-  mounted: function() {
+  mounted: function () {
     let _self = this;
 
     function initPage() {
@@ -84,18 +84,18 @@ export default {
       })
     }
 
-    $(function() {
+    $(function () {
       initPage();
     });
   },
   methods: {
-    resetOn: function(event) {
+    resetOn: function (event) {
       let _self = this;
       if ($("#username").val())
         $('#ResetModal').modal('show');
       else return common.dealPromptCommon('请选择用户');
     },
-    resetOp: function(event) {
+    resetOp: function (event) {
       let _self = this;
       let newPassword = $("#newPassword").val();
       if (newPassword)

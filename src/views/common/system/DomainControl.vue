@@ -217,7 +217,7 @@ const common = require('@/lib/common')
 const apiUrl = '/api/common/system/domainControl?method='
 
 export default {
-  data: function() {
+  data: function () {
     return {
       pagePara: '',
       workRow: {},
@@ -228,7 +228,7 @@ export default {
     }
   },
   name: 'domainControl',
-  mounted: async function() {
+  mounted: async function () {
     let _self = this
     let $table = $('#table')
 
@@ -249,7 +249,7 @@ export default {
 
     function initTable() {
       window.tableEvents = {
-        'click .domain_menu': function(e, value, row, index) {
+        'click .domain_menu': function (e, value, row, index) {
           _self.actDomain = JSON.parse(JSON.stringify(row))
           _self.getDoaminMenu(row.domain_id)
           $('#DomainMenuModel').modal('show')
@@ -262,7 +262,7 @@ export default {
         queryParams: queryParams,
         sidePagination: 'server',
         ajaxOptions: common.bootstrapTableAjaxOtions,
-        responseHandler: function(res) {
+        responseHandler: function (res) {
           return res.info
         },
         height: common.getTableHeight(),
@@ -286,10 +286,10 @@ export default {
         pageSize: 10,
         pageList: [10, 15, 25, 50, 100],
         locale: 'zh-CN',
-        onEditableShown: function(field, row, $el, editable) {
+        onEditableShown: function (field, row, $el, editable) {
           _self.oldRow = $.extend(true, {}, row)
         },
-        onEditableSave: function(field, row, oldValue, $el) {
+        onEditableSave: function (field, row, oldValue, $el) {
           common.rowModifyWithT(_self, apiUrl + 'modify', row, 'domain_id', $table)
         }
       })
@@ -304,15 +304,15 @@ export default {
         common.BTRowFormatWithFormatter('iconDisplay', '图标', iconDisplayFormatter),
         common.BTRowFormat('iconSource', '图标代码')
         ],
-        onClickRow: function(row, $element) {
+        onClickRow: function (row, $element) {
           $('#iconName').val(row.iconSource)
 
           $('#modalTable').modal('hide')
         },
-        formatLoadingMessage: function() {
+        formatLoadingMessage: function () {
           return '请稍等，正在加载中...'
         },
-        formatNoMatches: function() {
+        formatNoMatches: function () {
           return '无符合条件的记录'
         }
       })
@@ -348,10 +348,10 @@ export default {
     }
   },
   methods: {
-    search: function(event) {
+    search: function (event) {
       $('#table').bootstrapTable('refresh')
     },
-    addM: function(event) {
+    addM: function (event) {
       let _self = this
       _self.workRow = {}
       $('#domaintemplate_id').val(null).trigger('change')
@@ -359,7 +359,7 @@ export default {
       $('#formA').parsley().reset()
       $('#AddModal').modal('show')
     },
-    addDm: async function(event) {
+    addDm: async function (event) {
       let _self = this
       try {
         if ($('#formA').parsley().isValid()) {
@@ -381,15 +381,15 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    showIcon: function(event) {
+    showIcon: function (event) {
       let data = require('../../../components/data/icon.json')
-      $('#modalTable').on('shown.bs.modal', function() {
+      $('#modalTable').on('shown.bs.modal', function () {
         $('#iconTable').bootstrapTable('load', {
           data: data
         })
       })
     },
-    getDoaminMenu: async function(domainId, event) {
+    getDoaminMenu: async function (domainId, event) {
       let _self = this
 
       function zTreeBeforeEditName(treeId, treeNode) {
@@ -416,7 +416,7 @@ export default {
           common.dealWarningCommon('根节点不能删除')
           return false
         }
-        common.dealConfrimCommon('确认要删除?', function() {
+        common.dealConfrimCommon('确认要删除?', function () {
           _self.deleteSelect(treeNode)
         })
         return false
@@ -443,7 +443,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addF: function(event) {
+    addF: function (event) {
       let _self = this
       _self.workRow = {}
       _self.workRow.domainmenu_name = ''
@@ -458,7 +458,7 @@ export default {
       _self.act = '1'
       $('#FModal').modal('show')
     },
-    submitF: async function(event) {
+    submitF: async function (event) {
       let _self = this
       try {
         if ($('#formF').parsley().isValid()) {
@@ -478,7 +478,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addMenu: async function(event) {
+    addMenu: async function (event) {
       let _self = this
       try {
         let systemtreeObj = $.fn.zTree.getZTreeObj('systemtree')
@@ -511,7 +511,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    deleteSelect: async function(treeNode, event) {
+    deleteSelect: async function (treeNode, event) {
       let _self = this
       try {
         await _self.$http.post(apiUrl + 'deleteSelect', {

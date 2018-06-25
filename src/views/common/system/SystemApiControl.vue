@@ -99,7 +99,7 @@ const common = require('@/lib/common')
 const apiUrl = '/api/common/system/SystemApiControl?method='
 
 export default {
-  data: function() {
+  data: function () {
     return {
       pagePara: {},
       workRow: {},
@@ -108,7 +108,7 @@ export default {
     }
   },
   name: 'MenuControl',
-  mounted: function() {
+  mounted: function () {
     let _self = this
 
     async function initPage() {
@@ -130,7 +130,7 @@ export default {
     initPage()
   },
   methods: {
-    getData: async function(event) {
+    getData: async function (event) {
       let _self = this
       try {
         let response = await _self.$http.post(apiUrl + 'search', {})
@@ -141,7 +141,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addF: function(event) {
+    addF: function (event) {
       let _self = this
       _self.workRow = {}
       _self.workRow.systemmenu_name = ''
@@ -155,7 +155,7 @@ export default {
       _self.act = '1'
       $('#FModal').modal('show')
     },
-    submitF: async function(event) {
+    submitF: async function (event) {
       let _self = this
       try {
         if ($('#formF').parsley().isValid()) {
@@ -173,7 +173,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addM: function(event) {
+    addM: function (event) {
       let _self = this
       _self.workRow = {}
       _self.workRow.systemmenu_name = ''
@@ -190,7 +190,7 @@ export default {
       _self.act = '1'
       $('#MModal').modal('show')
     },
-    submitM: async function(event) {
+    submitM: async function (event) {
       let _self = this
       try {
         if ($('#formM').parsley().isValid()) {
@@ -209,7 +209,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    editNode: async function(event) {
+    editNode: async function (event) {
       let _self = this
       try {
         let nodeObj = $.fn.zTree.getZTreeObj('tree').getSelectedNodes()

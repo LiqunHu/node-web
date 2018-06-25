@@ -27,27 +27,27 @@ const common = require('@/lib/common')
 const apiUrl = '....'
 
 export default {
-    data: function() {
+    data: function () {
         return {
             pagePara: '',
         }
     },
     name: 'exampletemplate',
-    mounted: function() {
+    mounted: function () {
         let _self = this
 
         function initPage() {
             let websocket = common.createWebSocket();
-            websocket.onopen = function(evt) {
+            websocket.onopen = function (evt) {
                 console.log('open');
             };
-            websocket.onclose = function(evt) {
+            websocket.onclose = function (evt) {
                 console.log('close');
             };
-            websocket.onmessage = function(evt) {
+            websocket.onmessage = function (evt) {
                 console.log(evt.data);
             };
-            websocket.onerror = function(evt) {
+            websocket.onerror = function (evt) {
                 console.log('error');
             };
             common.reSizeCall()
@@ -56,7 +56,7 @@ export default {
         initPage()
     },
     methods: {
-        example: function(event) {}
+        example: function (event) { }
     }
 }
 </script>

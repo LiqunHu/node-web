@@ -32,13 +32,13 @@ const common = require('@/lib/common')
 const apiUrl = '/api/common/system/DomainGroupApiControl?method='
 
 export default {
-  data: function() {
+  data: function () {
     return {
       pagePara: {}
     }
   },
   name: 'domainGroupMenuControl',
-  mounted: function() {
+  mounted: function () {
     let _self = this
 
     function initPage() {
@@ -59,7 +59,7 @@ export default {
         treeObj.expandAll(true)
 
         common.initSelect2(groupSelector, retData['groupInfo'])
-        groupSelector.on('select2:select', function(evt) {
+        groupSelector.on('select2:select', function (evt) {
           getCheckData()
           $('#modify').prop('disabled', false)
         })
@@ -106,7 +106,7 @@ export default {
     initPage()
   },
   methods: {
-    modify: function(event) {
+    modify: function (event) {
       let _self = this
       let userGroupID = $('#userGroupID').val()
       if (!userGroupID) {

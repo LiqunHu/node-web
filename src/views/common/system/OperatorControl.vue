@@ -72,7 +72,7 @@ const common = require('@/lib/common')
 const apiUrl = '/api/common/system/OperatorControl?method='
 
 export default {
-  data: function() {
+  data: function () {
     return {
       pagePara: {},
       rowData: {},
@@ -80,14 +80,14 @@ export default {
     }
   },
   name: 'OperatorControl',
-  mounted: function() {
+  mounted: function () {
     let _self = this
     let $table = $('#table')
 
     function initTable() {
       window.tableEvents = {
-        'click .tableDelete': function(e, value, row, index) {
-          common.rowDeleteWithApi(_self, '用户删除', apiUrl + 'delete', $table, row, 'user_id', function() {})
+        'click .tableDelete': function (e, value, row, index) {
+          common.rowDeleteWithApi(_self, '用户删除', apiUrl + 'delete', $table, row, 'user_id', function () { })
         }
       }
 
@@ -101,7 +101,7 @@ export default {
         queryParams: queryParams,
         sidePagination: 'server',
         ajaxOptions: common.bootstrapTableAjaxOtions,
-        responseHandler: function(res) {
+        responseHandler: function (res) {
           return res.info
         },
         height: common.getTableHeight(),
@@ -121,10 +121,10 @@ export default {
         pageSize: 10,
         pageList: [10, 15, 25, 50, 100],
         locale: 'zh-CN',
-        onEditableShown: function(field, row, $el, editable) {
+        onEditableShown: function (field, row, $el, editable) {
           _self.oldRow = $.extend(true, {}, row)
         },
-        onEditableSave: function(field, row, oldValue, $el) {
+        onEditableSave: function (field, row, oldValue, $el) {
           common.rowModifyWithT(_self, apiUrl + 'modify', row, 'user_id', $table)
         }
       })
@@ -145,21 +145,21 @@ export default {
       })
     }
 
-    $(function() {
+    $(function () {
       initPage()
     })
   },
   methods: {
-    search: function(event) {
+    search: function (event) {
       $('#table').bootstrapTable('refresh')
     },
-    addM: function(event) {
+    addM: function (event) {
       let _self = this
       _self.rowData = {}
       $('#usergroup_id').val(null).trigger('change')
       $('#AddModal').modal('show')
     },
-    addOp: function(event) {
+    addOp: function (event) {
       let _self = this
       if ($('#formA').parsley().isValid()) {
         _self.rowData.usergroup_id = common.getSelect2Val('usergroup_id')
