@@ -140,7 +140,7 @@ const common = require('@/lib/common')
 const apiUrl = '/api/common/system/DomainTemplateControl?method='
 
 export default {
-  data: function() {
+  data: function () {
     return {
       pagePara: {},
       workRow: {},
@@ -150,14 +150,14 @@ export default {
     }
   },
   name: 'DomainTemplateControl',
-  mounted: function() {
+  mounted: function () {
     let _self = this
     let $templateTable = $('#templateTable')
     window.tableEvents = {
-      'click .tableDelete': function(e, value, row, index) {
-        common.rowDeleteWithApi(_self, '删除模板', apiUrl + 'deleteTemplate', $templateTable, row, 'domaintemplate_id', function() {})
+      'click .tableDelete': function (e, value, row, index) {
+        common.rowDeleteWithApi(_self, '删除模板', apiUrl + 'deleteTemplate', $templateTable, row, 'domaintemplate_id', function () { })
       },
-      'click .templatechoose': async function(e, value, row, index) {
+      'click .templatechoose': async function (e, value, row, index) {
         _self.actTemplate = JSON.parse(JSON.stringify(row))
         _self.getTemplateMenu(row.domaintemplate_id)
       }
@@ -187,10 +187,10 @@ export default {
         idField: 'domaintemplate_id',
         uniqueId: 'domaintemplate_id',
         rowStyle: rowStyle,
-        formatLoadingMessage: function() {
+        formatLoadingMessage: function () {
           return '请稍等，正在加载中...'
         },
-        formatNoMatches: function() {
+        formatNoMatches: function () {
           return ''
         }
       })
@@ -205,15 +205,15 @@ export default {
         common.BTRowFormatWithFormatter('iconDisplay', '图标', iconDisplayFormatter),
         common.BTRowFormat('iconSource', '图标代码')
         ],
-        onClickRow: function(row, $element) {
+        onClickRow: function (row, $element) {
           $('#iconName').val(row.iconSource)
 
           $('#modalTable').modal('hide')
         },
-        formatLoadingMessage: function() {
+        formatLoadingMessage: function () {
           return '请稍等，正在加载中...'
         },
-        formatNoMatches: function() {
+        formatNoMatches: function () {
           return '无符合条件的记录'
         }
       })
@@ -249,15 +249,15 @@ export default {
     initPage()
   },
   methods: {
-    showIcon: function(event) {
+    showIcon: function (event) {
       let data = require('../../../components/data/icon.json')
-      $('#modalTable').on('shown.bs.modal', function() {
+      $('#modalTable').on('shown.bs.modal', function () {
         $('#iconTable').bootstrapTable('load', {
           data: data
         })
       })
     },
-    getTemplateData: async function(event) {
+    getTemplateData: async function (event) {
       let _self = this
       try {
         let response = await _self.$http.post(apiUrl + 'searchTemplate', {})
@@ -269,7 +269,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    getTemplateMenu: async function(domaintemplateId) {
+    getTemplateMenu: async function (domaintemplateId) {
       let _self = this
 
       function zTreeBeforeEditName(treeId, treeNode) {
@@ -296,7 +296,7 @@ export default {
           common.dealWarningCommon('根节点不能删除')
           return false
         }
-        common.dealConfrimCommon('确认要删除?', function() {
+        common.dealConfrimCommon('确认要删除?', function () {
           _self.deleteSelect(treeNode)
         })
         return false
@@ -323,14 +323,14 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addT: function(event) {
+    addT: function (event) {
       let _self = this
       _self.workRow = {}
       _self.workRow.domaintemplate_name = ''
       $('#formT').parsley().reset()
       $('#TModal').modal('show')
     },
-    submitT: async function(event) {
+    submitT: async function (event) {
       let _self = this
       try {
         if ($('#formT').parsley().isValid()) {
@@ -342,7 +342,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addF: function(event) {
+    addF: function (event) {
       let _self = this
       _self.workRow = {}
       _self.workRow.templatemenu_name = ''
@@ -363,7 +363,7 @@ export default {
       _self.act = '1'
       $('#FModal').modal('show')
     },
-    submitF: async function(event) {
+    submitF: async function (event) {
       let _self = this
       try {
         if ($('#formF').parsley().isValid()) {
@@ -383,7 +383,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addMenu: async function(event) {
+    addMenu: async function (event) {
       let _self = this
       try {
         if (!_self.actTemplate) {
@@ -421,7 +421,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    deleteSelect: async function(treeNode, event) {
+    deleteSelect: async function (treeNode, event) {
       let _self = this
       try {
         await _self.$http.post(apiUrl + 'deleteSelect', {

@@ -40,7 +40,7 @@ const common = require('@/lib/common')
 const apiUrl = '/api/common/baseconfig/FollowerControl?method='
 
 export default {
-    data: function() {
+    data: function () {
         return {
             pagePara: '',
             workRow: {},
@@ -48,12 +48,12 @@ export default {
         }
     },
     name: 'supplierControl',
-    mounted: function() {
+    mounted: function () {
         let _self = this
         let $table = $('#table')
 
         window.tableEvents = {
-            'click .followerapprove': async function(e, value, row, index) {
+            'click .followerapprove': async function (e, value, row, index) {
                 try {
                     await _self.$http.post(apiUrl + 'approve', {
                         functiondomain_id: row.functiondomain_id
@@ -63,7 +63,7 @@ export default {
                     common.dealErrorCommon(_self, error);
                 }
             },
-            'click .followerreject': async function(e, value, row, index) {
+            'click .followerreject': async function (e, value, row, index) {
                 try {
                     await _self.$http.post(apiUrl + 'reject', {
                         functiondomain_id: row.functiondomain_id
@@ -73,7 +73,7 @@ export default {
                     common.dealErrorCommon(_self, error);
                 }
             },
-            'click .followercancel': async function(e, value, row, index) {
+            'click .followercancel': async function (e, value, row, index) {
                 try {
                     await _self.$http.post(apiUrl + 'cancel', {
                         functiondomain_id: row.functiondomain_id
@@ -94,7 +94,7 @@ export default {
                       </div>
                       `
             } else {
-              return `
+                return `
                     <div class="btn-group">
                         <a class="btn btn-danger btn-xs followercancel">取消关注</a>
                     </div>
@@ -117,7 +117,7 @@ export default {
                 queryParams: queryParams,
                 sidePagination: 'server',
                 ajaxOptions: common.bootstrapTableAjaxOtions,
-                responseHandler: function(res) {
+                responseHandler: function (res) {
                     return res.info;
                 },
                 height: common.getTableHeight(),
@@ -155,7 +155,7 @@ export default {
         initPage()
     },
     methods: {
-        search: function(event) {
+        search: function (event) {
             $('#table').bootstrapTable("refresh")
         }
     }

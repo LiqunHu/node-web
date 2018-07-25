@@ -186,7 +186,7 @@ const CryptoJS = require('crypto-js')
 const apiUrl = '/api/common/system/UserSetting?method='
 
 export default {
-  data: function() {
+  data: function () {
     return {
       userinfo: common.getStoreData('userinfo'),
       inputMobile: '',
@@ -200,7 +200,7 @@ export default {
   route: {
     canReuse: false
   },
-  mounted: function() {
+  mounted: function () {
     let _self = this
 
     function CropAvatar($element) {
@@ -233,7 +233,7 @@ export default {
         blobURLs: !!window.URL && URL.createObjectURL,
         formData: !!window.FormData
       },
-      init: function() {
+      init: function () {
         this.support.datauri = this.support.fileList && this.support.blobURLs
 
         if (!this.support.formData) {
@@ -244,30 +244,30 @@ export default {
         this.initModal()
         this.addListener()
       },
-      addListener: function() {
+      addListener: function () {
         this.$avatarView.on('click', $.proxy(this.click, this))
         this.$avatarInput.on('change', $.proxy(this.change, this))
         this.$avatarForm.on('submit', $.proxy(this.submit, this))
         this.$avatarBtns.on('click', $.proxy(this.rotate, this))
       },
-      initTooltip: function() {
+      initTooltip: function () {
         this.$avatarView.tooltip({
           placement: 'bottom'
         })
       },
-      initModal: function() {
+      initModal: function () {
         this.$avatarModal.modal({
           show: false
         })
       },
 
-      initPreview: function() {
+      initPreview: function () {
         let url = this.$avatar.attr('src')
 
         this.$avatarPreview.empty().html('<img src="' + url + '">')
       },
 
-      initIframe: function() {
+      initIframe: function () {
         let target = 'upload-iframe-' + (new Date()).getTime()
         let $iframe = $('<iframe>').attr({
           name: target,
@@ -276,9 +276,9 @@ export default {
         let _this = this
 
         // Ready ifrmae
-        $iframe.one('load', function() {
+        $iframe.one('load', function () {
           // respond response
-          $iframe.on('load', function() {
+          $iframe.on('load', function () {
             let data
 
             try {
@@ -307,12 +307,12 @@ export default {
         this.$avatarForm.attr('target', target).after($iframe.hide())
       },
 
-      click: function() {
+      click: function () {
         this.$avatarModal.modal('show')
         this.initPreview()
       },
 
-      change: function() {
+      change: function () {
         let files,
           file
 
@@ -340,7 +340,7 @@ export default {
         }
       },
 
-      submit: function() {
+      submit: function () {
         if (!this.$avatarSrc.val() && !this.$avatarInput.val()) {
           return false
         }
@@ -351,7 +351,7 @@ export default {
         }
       },
 
-      rotate: function(e) {
+      rotate: function (e) {
         let data
 
         if (this.active) {
@@ -363,7 +363,7 @@ export default {
         }
       },
 
-      isImageFile: function(file) {
+      isImageFile: function (file) {
         if (file.type) {
           return /^image\/\w+$/.test(file.type)
         } else {
@@ -371,7 +371,7 @@ export default {
         }
       },
 
-      startCropper: function() {
+      startCropper: function () {
         let _this = this
 
         if (this.active) {
@@ -383,7 +383,7 @@ export default {
             aspectRatio: 1,
             preview: this.$avatarPreview.selector,
             strict: false,
-            crop: function(data) {
+            crop: function (data) {
               let json = [
                 '{"x":' + data.x,
                 '"y":' + data.y,
@@ -400,7 +400,7 @@ export default {
         }
       },
 
-      stopCropper: function() {
+      stopCropper: function () {
         if (this.active) {
           this.$img.cropper('destroy')
           this.$img.remove()
@@ -408,7 +408,7 @@ export default {
         }
       },
 
-      ajaxUpload: function() {
+      ajaxUpload: function () {
         let data = new FormData(this.$avatarForm[0])
         let _this = this
 
@@ -422,33 +422,33 @@ export default {
           processData: false,
           contentType: false,
 
-          beforeSend: function() {
+          beforeSend: function () {
             _this.submitStart()
           },
 
-          success: function(data) {
+          success: function (data) {
             _this.submitDone(data)
           },
 
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
             _this.submitFail(textStatus || errorThrown)
           },
 
-          complete: function() {
+          complete: function () {
             _this.submitEnd()
           }
         })
       },
 
-      syncUpload: function() {
+      syncUpload: function () {
         this.$avatarSave.click()
       },
 
-      submitStart: function() {
+      submitStart: function () {
         this.$loading.fadeIn()
       },
 
-      submitDone: function(data) {
+      submitDone: function (data) {
         if ($.isPlainObject(data) && data.errno === 0) {
           if (data.info) {
             this.url = data.info.uploadurl
@@ -472,22 +472,22 @@ export default {
         }
       },
 
-      submitFail: function(msg) {
+      submitFail: function (msg) {
         this.alert(msg)
       },
 
-      submitEnd: function() {
+      submitEnd: function () {
         this.$loading.fadeOut()
       },
 
-      cropDone: function() {
+      cropDone: function () {
         this.$avatarForm.get(0).reset()
         this.$avatar.attr('src', this.url)
         this.stopCropper()
         this.$avatarModal.modal('hide')
       },
 
-      alert: function(msg) {
+      alert: function (msg) {
         let $alert = [
           '<div class="alert alert-danger avater-alert">',
           '<button type="button" class="close" data-dismiss="alert">&times;</button>',
@@ -502,7 +502,7 @@ export default {
     return new CropAvatar($('#crop-avatar'))
   },
   methods: {
-    changeInfo: function(event) {
+    changeInfo: function (event) {
       // `this` inside methods points to the Vue instance
       let _self = this
       _self.$http.post(apiUrl + 'modify', {
@@ -520,7 +520,7 @@ export default {
         common.dealErrorCommon(_self, response)
       })
     },
-    changePwd: function(event) {
+    changePwd: function (event) {
       let _self = this
       if (!_self.oldPassword) {
         return common.dealWarningCommon('请输入原密码')
@@ -555,7 +555,7 @@ export default {
   width: 178px;
   border: 3px solid #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   overflow: hidden;
 }
@@ -594,7 +594,7 @@ export default {
   height: 364px;
   width: 100%;
   margin-top: 15px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, .25);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
   background-color: #fcfcfc;
   overflow: hidden;
 }
@@ -617,7 +617,7 @@ export default {
 
 .avatar-preview:hover {
   border-color: #ccf;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
 .avatar-preview img {
@@ -662,8 +662,9 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background: #fff url("/static/images/base/loading.gif") no-repeat center center;
-  opacity: .75;
+  background: #fff url('/static/images/base/loading.gif') no-repeat center
+    center;
+  opacity: 0.75;
   filter: alpha(opacity=75);
   z-index: 20140628;
 }

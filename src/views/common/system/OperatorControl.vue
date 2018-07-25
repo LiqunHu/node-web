@@ -39,19 +39,19 @@
           <div class="modal-body">
             <div class="form-group">
               <label><span class="table-required">*</span>用户名</label>
-              <input class="form-control" v-model="rowData.username" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+              <input class="form-control" v-model="rowData.user_username" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
             </div>
             <div class="form-group">
               <label><span class="table-required">*</span>姓名</label>
-              <input class="form-control" v-model="rowData.name" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+              <input class="form-control" v-model="rowData.user_name" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
             </div>
             <div class="form-group">
               <label>邮箱</label>
-              <input type="emain" class="form-control" v-model="rowData.email" data-parsley-type="email">
+              <input type="emain" class="form-control" v-model="rowData.user_email" data-parsley-type="email">
             </div>
             <div class="form-group">
               <label>手机</label>
-              <input class="form-control" v-model="rowData.phone" data-parsley-phone="true">
+              <input class="form-control" v-model="rowData.user_phone" data-parsley-phone="true">
             </div>
             <div class="form-group">
               <label><span class="table-required">*</span>用户组</label>
@@ -72,7 +72,7 @@ const common = require('@/lib/common')
 const apiUrl = '/api/common/system/OperatorControl?method='
 
 export default {
-  data: function() {
+  data: function () {
     return {
       pagePara: {},
       rowData: {},
@@ -80,14 +80,14 @@ export default {
     }
   },
   name: 'OperatorControl',
-  mounted: function() {
+  mounted: function () {
     let _self = this
     let $table = $('#table')
 
     function initTable() {
       window.tableEvents = {
-        'click .tableDelete': function(e, value, row, index) {
-          common.rowDeleteWithApi(_self, '用户删除', apiUrl + 'delete', $table, row, 'user_id', function() {})
+        'click .tableDelete': function (e, value, row, index) {
+          common.rowDeleteWithApi(_self, '用户删除', apiUrl + 'delete', $table, row, 'user_id', function () { })
         }
       }
 
@@ -101,15 +101,15 @@ export default {
         queryParams: queryParams,
         sidePagination: 'server',
         ajaxOptions: common.bootstrapTableAjaxOtions,
-        responseHandler: function(res) {
+        responseHandler: function (res) {
           return res.info
         },
         height: common.getTableHeight(),
         columns: [
-          common.BTRowFormat('username', '用户名'),
-          common.BTRowFormatEditable('name', '姓名'),
-          common.BTRowFormatEditable('phone', '电话'),
-          common.BTRowFormatEditable('email', '邮箱'),
+          common.BTRowFormat('user_username', '用户名'),
+          common.BTRowFormatEditable('user_name', '姓名'),
+          common.BTRowFormatEditable('user_phone', '电话'),
+          common.BTRowFormatEditable('user_email', '邮箱'),
           common.BTRowFormatEdSelect2(_self, 'usergroup_id', '用户组', 'groupInfo'),
           common.actFormatter('act', common.operateFormatter, tableEvents)
         ],
@@ -121,10 +121,10 @@ export default {
         pageSize: 10,
         pageList: [10, 15, 25, 50, 100],
         locale: 'zh-CN',
-        onEditableShown: function(field, row, $el, editable) {
+        onEditableShown: function (field, row, $el, editable) {
           _self.oldRow = $.extend(true, {}, row)
         },
-        onEditableSave: function(field, row, oldValue, $el) {
+        onEditableSave: function (field, row, oldValue, $el) {
           common.rowModifyWithT(_self, apiUrl + 'modify', row, 'user_id', $table)
         }
       })
@@ -145,21 +145,21 @@ export default {
       })
     }
 
-    $(function() {
+    $(function () {
       initPage()
     })
   },
   methods: {
-    search: function(event) {
+    search: function (event) {
       $('#table').bootstrapTable('refresh')
     },
-    addM: function(event) {
+    addM: function (event) {
       let _self = this
       _self.rowData = {}
       $('#usergroup_id').val(null).trigger('change')
       $('#AddModal').modal('show')
     },
-    addOp: function(event) {
+    addOp: function (event) {
       let _self = this
       if ($('#formA').parsley().isValid()) {
         _self.rowData.usergroup_id = common.getSelect2Val('usergroup_id')
