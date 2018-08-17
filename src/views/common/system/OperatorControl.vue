@@ -39,19 +39,19 @@
           <div class="modal-body">
             <div class="form-group">
               <label><span class="table-required">*</span>用户名</label>
-              <input class="form-control" v-model="rowData.username" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+              <input class="form-control" v-model="rowData.user_username" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
             </div>
             <div class="form-group">
               <label><span class="table-required">*</span>姓名</label>
-              <input class="form-control" v-model="rowData.name" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+              <input class="form-control" v-model="rowData.user_name" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
             </div>
             <div class="form-group">
               <label>邮箱</label>
-              <input type="emain" class="form-control" v-model="rowData.email" data-parsley-type="email">
+              <input type="emain" class="form-control" v-model="rowData.user_email" data-parsley-type="email">
             </div>
             <div class="form-group">
               <label>手机</label>
-              <input class="form-control" v-model="rowData.phone" data-parsley-phone="true">
+              <input class="form-control" v-model="rowData.user_phone" data-parsley-phone="true">
             </div>
             <div class="form-group">
               <label><span class="table-required">*</span>用户组</label>
@@ -106,10 +106,10 @@ export default {
         },
         height: common.getTableHeight(),
         columns: [
-          common.BTRowFormat('username', '用户名'),
-          common.BTRowFormatEditable('name', '姓名'),
-          common.BTRowFormatEditable('phone', '电话'),
-          common.BTRowFormatEditable('email', '邮箱'),
+          common.BTRowFormat('user_username', '用户名'),
+          common.BTRowFormatEditable('user_name', '姓名'),
+          common.BTRowFormatEditable('user_phone', '电话'),
+          common.BTRowFormatEditable('user_email', '邮箱'),
           common.BTRowFormatEdSelect2(_self, 'usergroup_id', '用户组', 'groupInfo'),
           common.actFormatter('act', common.operateFormatter, tableEvents)
         ],

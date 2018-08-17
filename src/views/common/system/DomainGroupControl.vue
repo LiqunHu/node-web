@@ -226,7 +226,7 @@ export default {
     },
     editNode: async function (event) {
       let _self = this
-      async function getCheckData() {
+      async function getCheckData(nodeObj) {
         let response = await _self.$http.post(apiUrl + 'getcheck', {
           usergroup_id: nodeObj[0].usergroup_id
         })
@@ -266,7 +266,7 @@ export default {
           $('#formDep').parsley().reset()
           $('#DepModal').modal('show')
         } else if (nodeObj[0].node_type === '01') {
-          await getCheckData()
+          await getCheckData(nodeObj)
           $('#formPos').parsley().reset()
           $('#PosModal').modal('show')
         }
