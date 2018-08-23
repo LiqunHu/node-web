@@ -1158,7 +1158,7 @@ exports.BTRowFormatEdSelectW = function (_self, rowid, rowname, paraIndex, width
   }
 }
 
-exports.BTRowFormatEdSelect2 = function (_self, rowid, rowname, paraIndex, width = 200) {
+exports.BTRowFormatEdSelect2 = function (rowid, rowname, paraDict, width = 200) {
   return {
     field: rowid,
     title: rowname,
@@ -1168,13 +1168,13 @@ exports.BTRowFormatEdSelect2 = function (_self, rowid, rowname, paraIndex, width
     editable: {
       type: 'select2',
       emptytext: '无',
+      source: paraDict,
       select2: {
-        data: _self.pagePara[paraIndex],
         width: width
       },
       display: function (value) {
         let showText = ''
-        $(_self.pagePara[paraIndex]).each(function () {
+        $(paraDict).each(function () {
           if (this.id === value) {
             if (this.name) {
               showText = this.name
@@ -1190,7 +1190,7 @@ exports.BTRowFormatEdSelect2 = function (_self, rowid, rowname, paraIndex, width
   }
 }
 
-exports.BTRowFormatEdSelect2Disabled = function (_self, rowid, rowname, paraIndex, width = 200) {
+exports.BTRowFormatEdSelect2Disabled = function (rowid, rowname, paraDict, width = 200) {
   return {
     field: rowid,
     title: rowname,
@@ -1202,12 +1202,12 @@ exports.BTRowFormatEdSelect2Disabled = function (_self, rowid, rowname, paraInde
       emptytext: '无',
       disabled: true,
       select2: {
-        data: _self.pagePara[paraIndex],
+        data: paraDict,
         width: width
       },
       display: function (value) {
         let showText = ''
-        $(_self.pagePara[paraIndex]).each(function () {
+        $(paraDict).each(function () {
           if (this.id === value) {
             if (this.name) {
               showText = this.name
