@@ -385,11 +385,11 @@ export default {
             strict: false,
             crop: function (data) {
               let json = [
-                '{"x":' + data.x,
-                '"y":' + data.y,
-                '"height":' + data.height,
-                '"width":' + data.width,
-                '"rotate":' + data.rotate + '}'
+                '{"x":' + data.detail.x,
+                '"y":' + data.detail.y,
+                '"height":' + data.detail.height,
+                '"width":' + data.detail.width,
+                '"rotate":' + data.detail.rotate + '}'
               ].join()
 
               _this.$avatarData.val(json)
