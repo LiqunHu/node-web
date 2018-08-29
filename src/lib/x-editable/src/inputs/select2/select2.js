@@ -124,8 +124,6 @@ $(function(){
 
                     results.results = this.convertSource(results.results);
 
-                    console.log('processResults', data, results)
-
                     return results;
                 }, this);
             }
@@ -162,15 +160,12 @@ $(function(){
 
     $.extend(Constructor.prototype, {
         render: function () {
-            console.log('render');
             if (!this.$input.data('select2')) {
                 this.$input.select2(this.options.select2);
             }
-            console.log(this.$input.html())
 
             if (this.options.initFunction) {
                 this.options.initFunction(this.$input, $.proxy(function (initial) {
-                    console.log('initFunction', initial);
                     if ($.isArray(initial)) {
 
                     } else {
@@ -193,7 +188,6 @@ $(function(){
         },
 
         renderList: function() {
-            console.log('renderList', arguments)
             var $options = this.$input.children();
             Constructor.superclass.renderList.apply(this, arguments);
             this.$input.prepend($options);
@@ -219,8 +213,6 @@ $(function(){
         * by default.
         */
        str2value: function (str) {
-           console.log('str2value', str);
-
            if ($.isArray(str)) {
                return str;
            }
@@ -236,7 +228,6 @@ $(function(){
         * Called when no value is supplied, used to determine the value based on the text.
         */
        html2value: function (html) {
-           console.log('html2value', html, this.isMultiple);
            if (!this.isMultiple) {
                return html;
            }
@@ -248,7 +239,6 @@ $(function(){
         * Used to update the text in the link based on the selected value
         */
        value2html: function (value, element) {
-           console.log('value2html', arguments)
            Constructor.superclass.value2html.apply(this, arguments);
        },
 
@@ -262,7 +252,6 @@ $(function(){
            // We have to special case multiple selects, which aren't supported
            // by default.
            if (!$.isArray(value)) {
-               console.log('value2htmlFinal', arguments, 'non-array');
                return Constructor.superclass.value2htmlFinal.call(this, value, element);
            }
 
@@ -283,12 +272,8 @@ $(function(){
                }
            }
 
-           console.log('results', results);
-
            // The output is the text joined by the viewseparator (comma by default)
            results = results.join(this.options.viewseparator);
-
-           console.log('value2htmlFinal', arguments, results);
 
            $(element)[this.options.escape ? 'text' : 'html']($.trim(results));
        },
@@ -297,14 +282,10 @@ $(function(){
         * Used to set the value of Select2 based on the current x-editable selections.
         */
        value2input: function (value) {
-           console.log('value2input', value)
-
            // The value for a multiple select can be passed in as a single string
            // This will convert it from a string to an array of data values
            if (value && !$.isArray(value) && this.isMultiple) {
                value = this.str2value(value);
-
-               console.log('value2input', value, 'fixed');
            }
 
            if (!value) {
@@ -392,8 +373,6 @@ $(function(){
             if (!data && this.$input && this.$input.data('select2')) {
                 data = this.$input.select2('data');
             }
-
-            console.log('makeArray', data);
 
             if ($.isArray(data)) {
                 for (var i = 0; i < data.length; i++) {

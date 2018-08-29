@@ -29,12 +29,12 @@
                 <ul id="systemtree" class="ztree"></ul>
               </div>
               <div class="col-md-7">
-                <div class="col-md-1 modal-height vertical-container">
+                <div class="col-md-2 modal-height vertical-container">
                   <div class="btn-group-vertical">
                     <button type="button" class="btn btn-primary btn-icon" @click="addMenu"><i class="glyphicon glyphicon-chevron-right"></i></button>
                   </div>
                 </div>
-                <div class="col-md-11">
+                <div class="col-md-10">
                   <h5>模板功能</h5>
                   <div class="btn-group">
                     <a class="btn btn-block btn-default btn-sm" @click="addF"><span>增加目录</span></a>
