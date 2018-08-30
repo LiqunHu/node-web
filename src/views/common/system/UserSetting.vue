@@ -66,10 +66,10 @@
                                 <div class="avatar-body">
                                   <!-- Upload image and data -->
                                   <div class="avatar-upload">
-                                    <input class="avatar-src" name="avatar_src" type="hidden">
-                                    <input class="avatar-data" name="avatar_data" type="hidden" value="">
+                                    <input class="avatar-src" name="cropper_src" type="hidden">
+                                    <input class="avatar-data" name="cropper_data" type="hidden" value="">
                                     <label for="avatarInput">头像上传</label>
-                                    <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                    <input class="avatar-input" id="avatarInput" name="cropper_file" type="file">
                                   </div>
 
                                   <!-- Crop and preview -->
