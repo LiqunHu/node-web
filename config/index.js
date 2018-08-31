@@ -20,7 +20,8 @@ module.exports = {
         // }
       },
       '/temp': { target: 'http://localhost:9090'},
-      '/files': { target: 'http://localhost:9090'}
+      '/files': { target: 'http://localhost:9090'},
+      '/filesys': { target: 'http://localhost:9090'}
     },
 
     // Various Dev Server settings

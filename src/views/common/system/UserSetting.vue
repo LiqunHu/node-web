@@ -506,9 +506,9 @@ export default {
       // `this` inside methods points to the Vue instance
       let _self = this
       _self.$http.post(apiUrl + 'modify', {
-        name: _self.userinfo.name,
-        phone: _self.userinfo.phone,
-        avatar: _self.avatar
+        user_name: _self.userinfo.name,
+        user_phone: _self.userinfo.phone,
+        user_avatar: _self.avatar
       }).then((response) => {
         common.dealSuccessCommon('信息修改成功, 请重新登录')
         common.clearStoreData()
