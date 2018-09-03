@@ -91,6 +91,12 @@
               </div>
             </div>
             <div class="form-group">
+              <label class="col-md-3 control-label">是否显示</label>
+              <div class="col-md-9">
+                <select class="form-control select2" multiple style="width:100%" id="root_show_flag"></select>
+              </div>
+            </div>
+            <div class="form-group">
               <label class="col-md-3 control-label">图标</label>
               <div class="col-md-9">
                 <div class="input-group">
@@ -225,6 +231,7 @@ export default {
         let response = await _self.$http.post(apiUrl + 'init', {})
         let retData = response.data.info
         _self.pagePara = JSON.parse(JSON.stringify(retData))
+        common.initSelect2($('#root_show_flag'), retData.tfInfo)
         let treeObj = $.fn.zTree.init($('#systemtree'), {
           check: {
             enable: true,
@@ -285,6 +292,7 @@ export default {
         _self.workRow = {}
         _self.workRow.templatemenu_id = treeNode.templatemenu_id
         _self.workRow.templatemenu_name = treeNode.templatemenu_name
+        $('#root_show_flag').val(treeNode.root_show_flag).trigger('change')
         $('#iconName').val(treeNode.templatemenu_icon)
         $('#formF').parsley().reset()
         $('#FModal').modal('show')
@@ -345,6 +353,7 @@ export default {
     addF: function (event) {
       let _self = this
       _self.workRow = {}
+      $('#root_show_flag').val('1').trigger('change')
       _self.workRow.templatemenu_name = ''
       $('#iconName').val('')
       let nodeObj = $.fn.zTree.getZTreeObj('templatetree').getSelectedNodes()
@@ -369,6 +378,7 @@ export default {
         if ($('#formF').parsley().isValid()) {
           _self.workRow.parent_id = _self.actNode.templatemenu_id
           _self.workRow.domaintemplate_id = _self.actTemplate.domaintemplate_id
+          _self.workRow.root_show_flag = common.getSelect2Val('root_show_flag')
           _self.workRow.templatemenu_icon = $('#iconName').val()
 
           if (_self.act === '1') {
