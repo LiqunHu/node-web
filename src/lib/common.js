@@ -246,35 +246,19 @@ exports.dealConfrimCommon = function (message, callbackFunc) {
   })
 }
 
-exports.dealSuccessCommon = function (message, time) {
+exports.dealSuccessCommon = function (message) {
   var dlg = BootstrapDialog.show({
     title: '<i class= "fa fa-fw fa-info-circle"></i><strong>提示信息</strong>',
     cssClass: 'modal-success',
     message: '<i class="tex t-warning glyphicon glyphicon-ok" style="font-size: 40px"></i>' + message,
     buttons: [{
-      label: '<i class= "fa fa-fw fa-close"></i>关闭 (<span class="second">3</span>)',
+      label: '<i class= "fa fa-fw fa-close"></i>关闭',
       cssClass: 'btn-info ',
       action: function (dialogItself) {
         dialogItself.close()
       }
     }]
   })
-  $(function () {
-    var wait = 3
-    timeOut()
-
-    function timeOut() {
-      if (wait !== 0) {
-        setTimeout(function () {
-          $('.second').text(--wait)
-          timeOut()
-        }, 1000)
-      }
-    }
-  })
-  window.setTimeout(function () {
-    dlg.close()
-  }, 4000)
 }
 
 exports.dealPromptCommon = function (message) {

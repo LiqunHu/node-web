@@ -310,6 +310,20 @@ export default {
         return false
       }
 
+      function canNext(treeId, nodes, targetNode) {
+        return nodes[0].parent_id === targetNode.parent_id
+      }
+
+      async function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
+        let treeObj = $.fn.zTree.getZTreeObj('templatetree')
+        let nodes = treeObj.getNodesByParam('parent_id', targetNode.parent_id)
+        try {
+          await _self.$http.post(apiUrl + 'changeOrder', { menus: JSON.parse(JSON.stringify(nodes)) })
+        } catch (error) {
+          common.dealErrorCommon(_self, error)
+        }
+      }
+
       try {
         let response = await _self.$http.post(apiUrl + 'searchTemplateMenu', {
           domaintemplate_id: domaintemplateId
@@ -319,11 +333,19 @@ export default {
         $.fn.zTree.destroy('templatetree')
         let treeObj = $.fn.zTree.init($('#templatetree'), {
           edit: {
-            enable: true
+            enable: true,
+            drag: {
+              isCopy: false,
+              isMove: true,
+              prev: false,
+              inner: false,
+              next: canNext
+            }
           },
           callback: {
             beforeRemove: zTreeBeforeRemove,
-            beforeEditName: zTreeBeforeEditName
+            beforeEditName: zTreeBeforeEditName,
+            onDrop: zTreeOnDrop
           }
         }, retData)
         treeObj.expandAll(true)
