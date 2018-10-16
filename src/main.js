@@ -82,6 +82,7 @@ instance.interceptors.response.use(function (response) {
 }, function (error) {
   // Do something with response error
   $('.btn').removeClass('disabled')
+  load.stop()
   return Promise.reject(error)
 })
 Vue.prototype.$http = instance
