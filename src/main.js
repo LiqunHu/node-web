@@ -31,6 +31,8 @@ import 'cropper'
 import 'cropper/dist/cropper.min.css'
 import './lib/x-editable-input/mavonEdit/mavonEdit.js'
 import './lib/x-editable-input/mavonEdit/mavonEdit.css'
+import Loading from './lib/loading/src/loading.js'
+import './lib/loading/src/loading.css'
 
 import 'admin-lte/dist/css/AdminLTE.min.css'
 import 'admin-lte/dist/css/skins/_all-skins.min.css'
@@ -55,8 +57,12 @@ let axiosConfig = {
 
 const instance = axios.create(axiosConfig)
 // Add a request interceptor
+let load = new Loading()
 instance.interceptors.request.use(function (config) {
   // Do something before request is sent
+  $('.btn').addClass('disabled')
+  load.init()
+  load.start()
   let token = common.getStoreData('token')
   if (typeof (token) === 'string') {
     config.headers['authorization'] = token
@@ -70,9 +76,12 @@ instance.interceptors.request.use(function (config) {
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
   // Do something with response data
+  $('.btn').removeClass('disabled')
+  load.stop()
   return response
 }, function (error) {
   // Do something with response error
+  $('.btn').removeClass('disabled')
   return Promise.reject(error)
 })
 Vue.prototype.$http = instance

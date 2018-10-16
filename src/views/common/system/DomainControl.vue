@@ -131,7 +131,7 @@
           <div class="col-md-7">
             <div class="col-md-1 modal-height vertical-container">
               <div class="btn-group-vertical">
-                <button type="button" class="btn btn-primary btn-icon" @click="addMenu"><i class="icon-arrow-right"></i></button>
+                <button type="button" class="btn btn-primary btn-icon" @click="addMenu"><i class="glyphicon glyphicon-chevron-right"></i></button>
               </div>
             </div>
             <div class="col-md-11">
@@ -558,6 +558,16 @@ export default {
 }
 </script>
 <style scoped>
+.vertical-container {
+  height: 300px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
 .font-style {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
