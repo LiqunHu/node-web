@@ -65,7 +65,7 @@ instance.interceptors.request.use(function (config) {
   load.start()
   let token = common.getStoreData('token')
   if (typeof (token) === 'string') {
-    config.headers['authorization'] = token
+    config.headers['Authorization'] = token
   }
   return config
 }, function (error) {
