@@ -183,7 +183,7 @@
 <script>
 const common = require('@/lib/common')
 const CryptoJS = require('crypto-js')
-const apiUrl = '/api/common/system/UserSetting?method='
+const apiUrl = '/v1/api/common/system/UserSetting?method='
 
 export default {
   data: function () {

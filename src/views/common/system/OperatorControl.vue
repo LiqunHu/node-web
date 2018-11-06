@@ -69,7 +69,7 @@
 </template>
 <script>
 const common = require('@/lib/common')
-const apiUrl = '/api/common/system/OperatorControl?method='
+const apiUrl = '/v1/api/common/system/OperatorControl?method='
 
 export default {
   data: function () {

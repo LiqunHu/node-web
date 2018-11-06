@@ -60,7 +60,7 @@ export default {
     login: function (event) {
       let _self = this
       let encInfo = common.aesEncryptModeCFB(this.username, this.password)
-      _self.$http.post('/api/auth', {
+      _self.$http.post('/v1/api/auth', {
         username: this.username,
         identifyCode: encInfo[1],
         magicNo: encInfo[0],
