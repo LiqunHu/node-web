@@ -1,9 +1,9 @@
 .bootstrap-table .table:not(.table-condensed),
-.bootstrap-table .table:not(.table-condensed)>tbody>tr>td,
-.bootstrap-table .table:not(.table-condensed)>tbody>tr>th,
-.bootstrap-table .table:not(.table-condensed)>tfoot>tr>td,
-.bootstrap-table .table:not(.table-condensed)>tfoot>tr>th,
-.bootstrap-table .table:not(.table-condensed)>thead>tr>td {
+.bootstrap-table .table:not(.table-condensed) > tbody > tr > td,
+.bootstrap-table .table:not(.table-condensed) > tbody > tr > th,
+.bootstrap-table .table:not(.table-condensed) > tfoot > tr > td,
+.bootstrap-table .table:not(.table-condensed) > tfoot > tr > th,
+.bootstrap-table .table:not(.table-condensed) > thead > tr > td {
   padding-top: 2px;
   padding-bottom: 2px;
 }
@@ -38,19 +38,19 @@
 }
 
 .label-purple {
-  background-color: #8B2252
+  background-color: #8b2252;
 }
 
 .label-brown {
-  background-color: #993300
+  background-color: #993300;
 }
 
 .label-gray {
-  background-color: #CC9933
+  background-color: #cc9933;
 }
 
 .label-black {
-  background-color: #515151
+  background-color: #515151;
 }
 
 .image-set {
@@ -74,7 +74,7 @@
 .urls-detail {
   max-height: 50px;
   max-width: 60px;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .urls-detail ul {
@@ -89,12 +89,12 @@
 .urls-detail li a img {
   border: none;
   height: 50px;
-  width: 60px
+  width: 60px;
 }
 
 .ui-menu .ui-menu-item-wrapper {
   position: relative;
-  padding: 3px .4em 3px .4em;
+  padding: 3px 0.4em 3px 0.4em;
 }
 
 .ui-menu-item-remove {
@@ -146,6 +146,10 @@
 
 .bootstrap-dialog-footer-buttons button {
   color: black;
+}
+
+.select2-dropdown {
+  z-index: 1060;
 }
 
 /* Parsley */
