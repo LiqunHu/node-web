@@ -1,229 +1,229 @@
 <template>
-<div>
-  <section class="content-header">
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
-      <li class="active">机构维护</li>
-    </ol>
-  </section>
-  <section class="content">
-    <div class="col-lg-12">
-      <div class="box box-info">
-        <div class="box-body">
-          <div class="margin form-inline">
-            <div class="form-group">
-              <input class="form-control" id="search_text" placeholder="搜索编号、名称、地址等" style="width: 200px;">
+  <div>
+    <section class="content-header">
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+        <li class="active">机构维护</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="col-lg-12">
+        <div class="box box-info">
+          <div class="box-body">
+            <div class="margin form-inline">
+              <div class="form-group">
+                <input class="form-control" id="search_text" placeholder="搜索编号、名称、地址等" style="width: 200px;">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-info" v-on:click="search"><i class="fa fa-search"></i></button>
+              </div>
+              <div class="form-group  pull-right">
+                <button id="addM" class="btn btn-info" v-on:click="addM">
+                  <i class="glyphicon glyphicon-plus"></i> 增加
+                </button>
+              </div>
             </div>
-            <div class="form-group">
-              <button class="btn btn-info" v-on:click="search"><i class="fa fa-search"></i></button>
-            </div>
-            <div class="form-group  pull-right">
-              <button id="addM" class="btn btn-info" v-on:click="addM">
-                <i class="glyphicon glyphicon-plus"></i> 增加
-              </button>
-            </div>
+            <table id="table"></table>
           </div>
-          <table id="table"></table>
+        </div>
+      </div>
+    </section>
+    <div class="modal fade" id="AddModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">增加机构</h4>
+          </div>
+          <form @submit.prevent="addDm" id="formA">
+            <div class="modal-body row">
+              <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label" style="width: 102px;">组织机构代码</label>
+                <div class="col-sm-9">
+                  <input class="form-control" v-model="workRow.domain" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50" style="width: 440px;margin-left: -5px;">
+                </div>
+              </div>
+              <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">机构名称</label>
+                <div class="col-sm-10">
+                  <input class="form-control" v-model="workRow.domain_name" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+                </div>
+              </div>
+              <div class="form-group col-sm-12 m_b">
+                <div data-toggle="distpicker" id="distpicker">
+                  <div class="col-sm-4 p_r">
+                    <span class="col-sm-6 control-label font-style">所在区域</span>
+                    <div class="col-sm-9 m_left">
+                      <select class="form-control picker-width" id="domain_province" data-parsley-required="true"></select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 p_r">
+                    <!--<span class="col-sm-5 control-label font-style">市/县</span>-->
+                    <div class="col-sm-9 m_l">
+                      <select class="form-control picker-width" id="domain_city" data-parsley-required="true"></select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 p_r">
+                    <!--<span class="col-sm-3 control-label font-style">区</span>-->
+                    <div class="col-sm-9 m_l2">
+                      <select class="form-control picker-width" id="domain_district" data-parsley-required="true"></select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">注册地址</label>
+                <div class="col-sm-10">
+                  <input class="form-control" v-model="workRow.domain_address" data-parsley-required="true" maxlength="100" data-parsley-maxlength="100">
+                </div>
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="col-sm-4 control-label ">联系人</label>
+                <div class="col-sm-8">
+                  <input class="form-control " v-model="workRow.domain_contact" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+                </div>
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="col-sm-4 control-label">联系方式</label>
+                <div class="col-sm-8">
+                  <input class="form-control" v-model="workRow.domain_phone" data-parsley-required="true">
+                </div>
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="col-sm-4 control-label">固定电话</label>
+                <div class="col-sm-8">
+                  <input class="form-control" v-model="workRow.domain_fax">
+                </div>
+              </div>
+              <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">备注</label>
+                <div class="col-sm-10 left-padding">
+                  <input class="form-control" v-model="workRow.domain_description" maxlength="100" data-parsley-maxlength="100">
+                </div>
+              </div>
+              <div class="form-group col-sm-12">
+                <label class="col-sm-2 control-label">公司模板</label>
+                <div class="col-sm-10">
+                  <select class="form-control select2" multiple id="domaintemplate_id" data-parsley-required="true"></select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info"><i class="fa fa-fw fa-plus"></i>增加</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </section>
-  <div class="modal fade" id="AddModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">增加机构</h4>
-        </div>
-        <form @submit.prevent="addDm" id="formA">
+
+    <div class="modal fade" id="DomainMenuModel">
+      <div class="modal-dialog" style="width:900px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">机构权限</h4>
+          </div>
           <div class="modal-body row">
-            <div class="form-group col-sm-12">
-              <label class="col-sm-2 control-label" style="width: 102px;">组织机构代码</label>
-              <div class="col-sm-9">
-                <input class="form-control" v-model="workRow.domain" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50" style="width: 440px;margin-left: -5px;">
-              </div>
+            <div class="col-md-5" style="overflow:hidden">
+              <h5>系统功能</h5>
+              <ul id="systemtree" class="ztree"></ul>
             </div>
-            <div class="form-group col-sm-12">
-              <label class="col-sm-2 control-label">机构名称</label>
-              <div class="col-sm-10">
-                <input class="form-control" v-model="workRow.domain_name" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
-              </div>
-            </div>
-            <div class="form-group col-sm-12 m_b">
-              <div data-toggle="distpicker" id="distpicker">
-                <div class="col-sm-4 p_r">
-                  <span class="col-sm-6 control-label font-style">所在区域</span>
-                  <div class="col-sm-9 m_left">
-                    <select class="form-control picker-width" id="domain_province" data-parsley-required="true"></select>
-                  </div>
-                </div>
-                <div class="col-sm-4 p_r">
-                  <!--<span class="col-sm-5 control-label font-style">市/县</span>-->
-                  <div class="col-sm-9 m_l">
-                    <select class="form-control picker-width" id="domain_city" data-parsley-required="true"></select>
-                  </div>
-                </div>
-                <div class="col-sm-4 p_r">
-                  <!--<span class="col-sm-3 control-label font-style">区</span>-->
-                  <div class="col-sm-9 m_l2">
-                    <select class="form-control picker-width" id="domain_district" data-parsley-required="true"></select>
-                  </div>
+            <div class="col-md-7">
+              <div class="col-md-1 modal-height vertical-container">
+                <div class="btn-group-vertical">
+                  <button type="button" class="btn btn-primary btn-icon" @click="addMenu"><i class="glyphicon glyphicon-chevron-right"></i></button>
                 </div>
               </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <label class="col-sm-2 control-label">注册地址</label>
-              <div class="col-sm-10">
-                <input class="form-control" v-model="workRow.domain_address" data-parsley-required="true" maxlength="100" data-parsley-maxlength="100">
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <label class="col-sm-4 control-label ">联系人</label>
-              <div class="col-sm-8">
-                <input class="form-control " v-model="workRow.domain_contact" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <label class="col-sm-4 control-label">联系方式</label>
-              <div class="col-sm-8">
-                <input class="form-control" v-model="workRow.domain_phone" data-parsley-required="true">
-              </div>
-            </div>
-            <div class="form-group col-sm-6">
-              <label class="col-sm-4 control-label">固定电话</label>
-              <div class="col-sm-8">
-                <input class="form-control" v-model="workRow.domain_fax">
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <label class="col-sm-2 control-label">备注</label>
-              <div class="col-sm-10 left-padding">
-                <input class="form-control" v-model="workRow.domain_description" maxlength="100" data-parsley-maxlength="100">
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <label class="col-sm-2 control-label">公司模板</label>
-              <div class="col-sm-10">
-                <select class="form-control select2" multiple id="domaintemplate_id" data-parsley-required="true"></select>
+              <div class="col-md-11">
+                <h5>机构功能</h5>
+                <div class="btn-group">
+                  <a class="btn btn-default buttons-copy buttons-html5 btn-xs" @click="addF"><span>增加目录</span></a>
+                </div>
+                <div>
+                  <ul id="domaintree" class="ztree"></ul>
+                </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-info"><i class="fa fa-fw fa-plus"></i>增加</button>
+            <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">关闭</a>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="DomainMenuModel">
-    <div class="modal-dialog" style="width:900px;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">机构权限</h4>
-        </div>
-        <div class="modal-body row">
-          <div class="col-md-5" style="overflow:hidden">
-            <h5>系统功能</h5>
-            <ul id="systemtree" class="ztree"></ul>
-          </div>
-          <div class="col-md-7">
-            <div class="col-md-1 modal-height vertical-container">
-              <div class="btn-group-vertical">
-                <button type="button" class="btn btn-primary btn-icon" @click="addMenu"><i class="glyphicon glyphicon-chevron-right"></i></button>
-              </div>
-            </div>
-            <div class="col-md-11">
-              <h5>机构功能</h5>
-              <div class="btn-group">
-                <a class="btn btn-default buttons-copy buttons-html5 btn-xs" @click="addF"><span>增加目录</span></a>
-              </div>
-              <div>
-                <ul id="domaintree" class="ztree"></ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">关闭</a>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="modal fade" id="FModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">目录</h4>
-        </div>
-        <form class="form-horizontal" @submit.prevent="submitF" id="formF">
-          <div class="modal-body">
-            <div class="form-group">
-              <label class="col-md-3 control-label">目录名称</label>
-              <div class="col-md-9">
-                <input class="form-control" v-model="workRow.domainmenu_name" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+    <div class="modal fade" id="FModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">目录</h4>
+          </div>
+          <form class="form-horizontal" @submit.prevent="submitF" id="formF">
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="col-md-3 control-label">目录名称</label>
+                <div class="col-md-9">
+                  <input class="form-control" v-model="workRow.domainmenu_name" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-md-3 control-label">是否显示</label>
-              <div class="col-md-9">
-                <select class="form-control select2" multiple style="width:100%" id="root_show_flag"></select>
+              <div class="form-group">
+                <label class="col-md-3 control-label">是否显示</label>
+                <div class="col-md-9">
+                  <select class="form-control select2" multiple style="width:100%" id="root_show_flag"></select>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-md-3 control-label">图标</label>
-              <div class="col-md-9">
-                <div class="input-group">
-                  <input class="form-control" id="iconName" data-parsley-required="true">
-                  <span class="input-group-btn">
+              <div class="form-group">
+                <label class="col-md-3 control-label">图标</label>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <input class="form-control" id="iconName" data-parsley-required="true">
+                    <span class="input-group-btn">
                       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalTable" @click="showIcon">
-                          <i class="fa fa-fw fa-search"></i>选择
+                        <i class="fa fa-fw fa-search"></i>选择
                       </button>
                     </span>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info">
+                <i class="fa fa-fw fa-plus"></i>提交
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modalTable">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">图标选择</h4>
+          </div>
+          <div class="modal-body">
+            <table id="iconTable" data-height="299" data-toggle="table">
+            </table>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-info">
-                <i class="fa fa-fw fa-plus"></i>提交
-            </button>
+            <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-fw fa-close"></i>关闭</button>
           </div>
-        </form>
+        </div>
+        <!-- /.modal-content -->
       </div>
+      <!-- /.modal-dialog -->
     </div>
+    <!-- /.modal -->
   </div>
-  <div class="modal fade" id="modalTable">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">图标选择</h4>
-        </div>
-        <div class="modal-body">
-          <table id="iconTable" data-height="299" data-toggle="table">
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-fw fa-close"></i>关闭</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-</div>
 </template>
 <script>
 const common = require('@/lib/common')
 const apiUrl = '/v1/api/common/system/domainControl?method='
 
 export default {
-  data: function () {
+  data: function() {
     return {
       pagePara: '',
       workRow: {},
@@ -234,7 +234,7 @@ export default {
     }
   },
   name: 'domainControl',
-  mounted: async function () {
+  mounted: async function() {
     let _self = this
     let $table = $('#table')
 
@@ -255,7 +255,7 @@ export default {
 
     function initTable() {
       window.tableEvents = {
-        'click .domain_menu': function (e, value, row, index) {
+        'click .domain_menu': function(e, value, row, index) {
           _self.actDomain = JSON.parse(JSON.stringify(row))
           _self.getDoaminMenu(row.domain_id)
           $('#DomainMenuModel').modal('show')
@@ -268,7 +268,7 @@ export default {
         queryParams: queryParams,
         sidePagination: 'server',
         ajaxOptions: common.bootstrapTableAjaxOtions,
-        responseHandler: function (res) {
+        responseHandler: function(res) {
           return res.info
         },
         height: common.getTableHeight(),
@@ -292,33 +292,44 @@ export default {
         pageSize: 10,
         pageList: [10, 15, 25, 50, 100],
         locale: 'zh-CN',
-        onEditableShown: function (field, row, $el, editable) {
+        onEditableShown: function(field, row, $el, editable) {
           _self.oldRow = $.extend(true, {}, row)
         },
-        onEditableSave: function (field, row, oldValue, $el) {
-          common.rowModifyWithT(_self, apiUrl + 'modify', row, 'domain_id', $table)
+        onEditableSave: function(field, row, oldValue, $el) {
+          common.rowModifyWithT(
+            _self,
+            apiUrl + 'modify',
+            row,
+            'domain_id',
+            $table
+          )
         }
       })
       common.changeTableClass($table)
 
       $('#iconTable').bootstrapTable({
-        columns: [{
-          field: 'id',
-          align: 'center',
-          title: '序号'
-        },
-        common.BTRowFormatWithFormatter('iconDisplay', '图标', iconDisplayFormatter),
-        common.BTRowFormat('iconSource', '图标代码')
+        columns: [
+          {
+            field: 'id',
+            align: 'center',
+            title: '序号'
+          },
+          common.BTRowFormatWithFormatter(
+            'iconDisplay',
+            '图标',
+            iconDisplayFormatter
+          ),
+          common.BTRowFormat('iconSource', '图标代码')
         ],
-        onClickRow: function (row, $element) {
+        onClickRow: function(row, $element) {
           $('#iconName').val(row.iconSource)
 
           $('#modalTable').modal('hide')
         },
-        formatLoadingMessage: function () {
+        formatLoadingMessage: function() {
           return '请稍等，正在加载中...'
         },
-        formatNoMatches: function () {
+        formatNoMatches: function() {
           return '无符合条件的记录'
         }
       })
@@ -331,15 +342,19 @@ export default {
       _self.pagePara = JSON.parse(JSON.stringify(retData))
       common.initSelect2($('#domaintemplate_id'), retData.templateInfo)
       common.initSelect2($('#root_show_flag'), retData.tfInfo)
-      let treeObj = $.fn.zTree.init($('#systemtree'), {
-        check: {
-          enable: true,
-          chkboxType: {
-            'Y': 'ps',
-            'N': 'ps'
+      let treeObj = $.fn.zTree.init(
+        $('#systemtree'),
+        {
+          check: {
+            enable: true,
+            chkboxType: {
+              Y: 'ps',
+              N: 'ps'
+            }
           }
-        }
-      }, retData.sysmenus)
+        },
+        retData.sysmenus
+      )
       treeObj.expandAll(true)
 
       $('#distpicker').distpicker({
@@ -355,22 +370,32 @@ export default {
     }
   },
   methods: {
-    search: function (event) {
+    search: function(event) {
       $('#table').bootstrapTable('refresh')
     },
-    addM: function (event) {
+    addM: function(event) {
       let _self = this
       _self.workRow = {}
-      $('#domaintemplate_id').val(null).trigger('change')
+      $('#domaintemplate_id')
+        .val(null)
+        .trigger('change')
       $('#distpicker').distpicker('reset', true)
-      $('#formA').parsley().reset()
+      $('#formA')
+        .parsley()
+        .reset()
       $('#AddModal').modal('show')
     },
-    addDm: async function (event) {
+    addDm: async function(event) {
       let _self = this
       try {
-        if ($('#formA').parsley().isValid()) {
-          _self.workRow.domaintemplate_id = common.getSelect2Val('domaintemplate_id')
+        if (
+          $('#formA')
+            .parsley()
+            .isValid()
+        ) {
+          _self.workRow.domaintemplate_id = common.getSelect2Val(
+            'domaintemplate_id'
+          )
           _self.workRow.domain_province = $('#domain_province').val()
           _self.workRow.domain_city = $('#domain_city').val()
           _self.workRow.domain_district = $('#domain_district').val()
@@ -388,15 +413,15 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    showIcon: function (event) {
+    showIcon: function(event) {
       let data = require('../../../components/data/icon.json')
-      $('#modalTable').on('shown.bs.modal', function () {
+      $('#modalTable').on('shown.bs.modal', function() {
         $('#iconTable').bootstrapTable('load', {
           data: data
         })
       })
     },
-    getDoaminMenu: async function (domainId, event) {
+    getDoaminMenu: async function(domainId, event) {
       let _self = this
 
       function zTreeBeforeEditName(treeId, treeNode) {
@@ -412,9 +437,13 @@ export default {
         _self.workRow = {}
         _self.workRow.domainmenu_id = treeNode.domainmenu_id
         _self.workRow.domainmenu_name = treeNode.domainmenu_name
-        $('#root_show_flag').val(treeNode.root_show_flag).trigger('change')
+        $('#root_show_flag')
+          .val(treeNode.root_show_flag)
+          .trigger('change')
         $('#iconName').val(treeNode.domainmenu_icon)
-        $('#formF').parsley().reset()
+        $('#formF')
+          .parsley()
+          .reset()
         $('#FModal').modal('show')
         return false
       }
@@ -424,7 +453,7 @@ export default {
           common.dealWarningCommon('根节点不能删除')
           return false
         }
-        common.dealConfrimCommon('确认要删除?', function () {
+        common.dealConfrimCommon('确认要删除?', function() {
           _self.deleteSelect(treeNode)
         })
         return false
@@ -434,11 +463,19 @@ export default {
         return nodes[0].parent_id === targetNode.parent_id
       }
 
-      async function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
+      async function zTreeOnDrop(
+        event,
+        treeId,
+        treeNodes,
+        targetNode,
+        moveType
+      ) {
         let treeObj = $.fn.zTree.getZTreeObj('domaintree')
         let nodes = treeObj.getNodesByParam('parent_id', targetNode.parent_id)
         try {
-          await _self.$http.post(apiUrl + 'changeOrder', { menus: JSON.parse(JSON.stringify(nodes)) })
+          await _self.$http.post(apiUrl + 'changeOrder', {
+            menus: JSON.parse(JSON.stringify(nodes))
+          })
         } catch (error) {
           common.dealErrorCommon(_self, error)
         }
@@ -451,48 +488,64 @@ export default {
         let retData = response.data.info
 
         $.fn.zTree.destroy('domaintree')
-        let treeObj = $.fn.zTree.init($('#domaintree'), {
-          edit: {
-            enable: true,
-            drag: {
-              isCopy: false,
-              isMove: true,
-              prev: false,
-              inner: false,
-              next: canNext
+        let treeObj = $.fn.zTree.init(
+          $('#domaintree'),
+          {
+            edit: {
+              enable: true,
+              drag: {
+                isCopy: false,
+                isMove: true,
+                prev: false,
+                inner: false,
+                next: canNext
+              }
+            },
+            callback: {
+              beforeRemove: zTreeBeforeRemove,
+              beforeEditName: zTreeBeforeEditName,
+              onDrop: zTreeOnDrop
             }
           },
-          callback: {
-            beforeRemove: zTreeBeforeRemove,
-            beforeEditName: zTreeBeforeEditName,
-            onDrop: zTreeOnDrop
-          }
-        }, retData)
+          retData
+        )
         treeObj.expandAll(true)
       } catch (error) {
         common.dealErrorCommon(_self, error)
       }
     },
-    addF: function (event) {
+    addF: function(event) {
       let _self = this
       _self.workRow = {}
-      $('#root_show_flag').val('1').trigger('change')
+      $('#root_show_flag')
+        .val('1')
+        .trigger('change')
       _self.workRow.domainmenu_name = ''
       $('#iconName').val('')
       let nodeObj = $.fn.zTree.getZTreeObj('domaintree').getSelectedNodes()
       if (nodeObj && nodeObj.length > 0) {
-        if (nodeObj[0].getPath().length > 2) return common.dealWarningCommon('系统最多只支持2级菜单')
-        if (nodeObj[0].node_type === '01') return common.dealWarningCommon('菜单下不允许新增')
+        if (nodeObj[0].getPath().length > 2) {
+          return common.dealWarningCommon('系统最多只支持2级菜单')
+        }
+        if (nodeObj[0].node_type === '01') {
+          return common.dealWarningCommon('菜单下不允许新增')
+        }
         _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]))
       } else return common.dealWarningCommon('请选择一个节点')
-      $('#formF').parsley().reset()
+      $('#formF')
+        .parsley()
+        .reset()
       _self.act = '1'
       $('#FModal').modal('show')
     },
-    submitF: async function (event) {
+    submitF: async function(event) {
       let _self = this
       try {
-        if ($('#formF').parsley().isValid()) {
+        if (
+          $('#formF')
+            .parsley()
+            .isValid()
+        ) {
           _self.workRow.parent_id = _self.actNode.domainmenu_id
           _self.workRow.domain_id = _self.actDomain.domain_id
           _self.workRow.root_show_flag = common.getSelect2Val('root_show_flag')
@@ -510,7 +563,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addMenu: async function (event) {
+    addMenu: async function(event) {
       let _self = this
       try {
         let systemtreeObj = $.fn.zTree.getZTreeObj('systemtree')
@@ -527,9 +580,16 @@ export default {
 
         let nodeObj = $.fn.zTree.getZTreeObj('domaintree').getSelectedNodes()
         if (nodeObj && nodeObj.length > 0) {
-          if (nodeObj[0].node_type === '01') return common.dealWarningCommon('菜单下不允许新增')
+          if (nodeObj[0].node_type === '01') {
+            return common.dealWarningCommon('菜单下不允许新增')
+          }
+
           _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]))
-        } else return common.dealWarningCommon('请在机构功能中选择需要增加功能的目录')
+        } else {
+          return common.dealWarningCommon(
+            '请在机构功能中选择需要增加功能的目录'
+          )
+        }
 
         await _self.$http.post(apiUrl + 'addMenus', {
           domain_id: _self.actDomain.domain_id,
@@ -543,7 +603,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    deleteSelect: async function (treeNode, event) {
+    deleteSelect: async function(treeNode, event) {
       let _self = this
       try {
         await _self.$http.post(apiUrl + 'deleteSelect', {
