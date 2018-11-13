@@ -29,7 +29,7 @@
 </template>
 <script>
 const common = require('@/lib/common')
-const apiUrl = '/v1/api/common/system/DomainGroupApiControl?method='
+const apiUrl = '/v1/api/common/system/DomainGroupApiControl/'
 
 export default {
   data: function () {

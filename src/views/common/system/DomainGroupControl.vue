@@ -80,7 +80,7 @@
 </template>
 <script>
 const common = require('@/lib/common')
-const apiUrl = '/v1/api/common/system/DomainGroupControl?method='
+const apiUrl = '/v1/api/common/system/DomainGroupControl/'
 
 export default {
   data: function () {

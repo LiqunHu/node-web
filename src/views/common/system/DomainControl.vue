@@ -220,7 +220,7 @@
 </template>
 <script>
 const common = require('@/lib/common')
-const apiUrl = '/v1/api/common/system/domainControl?method='
+const apiUrl = '/v1/api/common/system/domainControl/'
 
 export default {
   data: function() {

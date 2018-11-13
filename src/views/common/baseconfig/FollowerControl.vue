@@ -37,7 +37,7 @@
 </template>
 <script>
 const common = require('@/lib/common')
-const apiUrl = '/api/common/baseconfig/FollowerControl?method='
+const apiUrl = '/api/common/baseconfig/FollowerControl/'
 
 export default {
     data: function () {
