@@ -244,9 +244,7 @@ export default {
     }
 
     function operateFormatter(value, row, index) {
-      return [
-        '<a class="btn btn-primary btn-xs m-r-5 domain_menu">设置机构权限</a>'
-      ].join('')
+      return ['<a class="btn btn-primary btn-xs m-r-5 domain_menu">设置机构权限</a>'].join('')
     }
 
     function iconDisplayFormatter(value, row) {
@@ -296,13 +294,7 @@ export default {
           _self.oldRow = $.extend(true, {}, row)
         },
         onEditableSave: function(field, row, oldValue, $el) {
-          common.rowModifyWithT(
-            _self,
-            apiUrl + 'modify',
-            row,
-            'domain_id',
-            $table
-          )
+          common.rowModifyWithT(_self, apiUrl + 'modify', row, 'domain_id', $table)
         }
       })
       common.changeTableClass($table)
@@ -314,11 +306,7 @@ export default {
             align: 'center',
             title: '序号'
           },
-          common.BTRowFormatWithFormatter(
-            'iconDisplay',
-            '图标',
-            iconDisplayFormatter
-          ),
+          common.BTRowFormatWithFormatter('iconDisplay', '图标', iconDisplayFormatter),
           common.BTRowFormat('iconSource', '图标代码')
         ],
         onClickRow: function(row, $element) {
@@ -393,9 +381,7 @@ export default {
             .parsley()
             .isValid()
         ) {
-          _self.workRow.domaintemplate_id = common.getSelect2Val(
-            'domaintemplate_id'
-          )
+          _self.workRow.domaintemplate_id = common.getSelect2Val('domaintemplate_id')
           _self.workRow.domain_province = $('#domain_province').val()
           _self.workRow.domain_city = $('#domain_city').val()
           _self.workRow.domain_district = $('#domain_district').val()
@@ -463,18 +449,18 @@ export default {
         return nodes[0].parent_id === targetNode.parent_id
       }
 
-      async function zTreeOnDrop(
-        event,
-        treeId,
-        treeNodes,
-        targetNode,
-        moveType
-      ) {
+      async function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
         let treeObj = $.fn.zTree.getZTreeObj('domaintree')
         let nodes = treeObj.getNodesByParam('parent_id', targetNode.parent_id)
+        let menus = []
+        for (let n of nodes) {
+          menus.push({
+            domainmenu_id: n.domainmenu_id
+          })
+        }
         try {
           await _self.$http.post(apiUrl + 'changeOrder', {
-            menus: JSON.parse(JSON.stringify(nodes))
+            menus: menus
           })
         } catch (error) {
           common.dealErrorCommon(_self, error)
@@ -571,7 +557,11 @@ export default {
         let menus = []
         for (let i = 0; i < nodes.length; i++) {
           if (nodes[i].node_type === '01') {
-            menus.push(nodes[i])
+            menus.push({
+              api_id: nodes[i].api_id,
+              systemmenu_name: nodes[i].systemmenu_name,
+              api_function: nodes[i].api_function
+            })
           }
         }
         if (menus.length < 1) {
@@ -586,9 +576,7 @@ export default {
 
           _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]))
         } else {
-          return common.dealWarningCommon(
-            '请在机构功能中选择需要增加功能的目录'
-          )
+          return common.dealWarningCommon('请在机构功能中选择需要增加功能的目录')
         }
 
         await _self.$http.post(apiUrl + 'addMenus', {
