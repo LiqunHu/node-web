@@ -376,9 +376,8 @@ exports.initSelect2 = (jqItem, sdata) => {
     multiple: true
   })
 }
-exports.initSelect2Editable = (jqItem, sdata) => {
+exports.initSelect2Multiple = (jqItem, sdata) => {
   jqItem.select2({
-    maximumSelectionLength: 1,
     language: 'zh-CN',
     width: '100%',
     data: sdata,
