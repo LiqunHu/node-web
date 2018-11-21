@@ -62,9 +62,9 @@ export default {
       let encInfo = common.aesEncryptModeCFB(this.username, this.password)
       _self.$http.post('/v1/api/auth', {
         username: this.username,
-        identifyCode: encInfo[1],
-        magicNo: encInfo[0],
-        loginType: 'WEB'
+        identify_code: encInfo[1],
+        magic_no: encInfo[0],
+        login_type: 'WEB'
       }).then(function (response) {
         let token = response.headers.authorization
         if (token) {
