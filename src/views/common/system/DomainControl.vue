@@ -223,7 +223,7 @@ const common = require('@/lib/common')
 const apiUrl = '/v1/api/common/system/domainControl/'
 
 export default {
-  data: () => {
+  data: function () {
     return {
       pagePara: '',
       workRow: {},
@@ -234,7 +234,7 @@ export default {
     }
   },
   name: 'domainControl',
-  mounted: async () => {
+  mounted: async function () {
     let _self = this
     let $table = $('#table')
 

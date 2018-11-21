@@ -227,10 +227,6 @@ exports.dealErrorCommon = (obj, res) => {
         path: '/common/system/error401'
       })
     } else {
-      obj.$store.dispatch('setError', {
-        errCode: response.status,
-        errMsg: response
-      })
       obj.$router.push({
         path: '/common/system/error'
       })
@@ -1281,6 +1277,25 @@ exports.BTRowFormatEdSelect2Disabled = (rowid, rowname, paraDict, width = 200) =
           }
         })
         $(this).html(showText)
+      }
+    }
+  }
+}
+
+exports.BTRowFormatEdSelect2Multiple = (rowid, rowname, paraDict, width = 200) => {
+  return {
+    field: rowid,
+    title: rowname,
+    class: 'text-nowrap',
+    align: 'center',
+    valign: 'middle',
+    editable: {
+      type: 'select2',
+      emptytext: '无',
+      source: paraDict,
+      select2: {
+        width: width,
+        multiple: true
       }
     }
   }

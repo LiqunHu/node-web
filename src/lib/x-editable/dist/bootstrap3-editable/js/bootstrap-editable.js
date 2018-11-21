@@ -3815,7 +3815,7 @@ $(function(){
            }
 
            if (this.isMultiple) {
-               return str.split(this.getSeparator());
+               return str.toString().split(this.getSeparator());
            }
 
            return str;
