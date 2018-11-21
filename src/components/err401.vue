@@ -41,7 +41,6 @@
   </div>
 </template>
 <script>
-const common = require('@/lib/common')
 export default {
   name: 'err401',
   mounted: function() {
