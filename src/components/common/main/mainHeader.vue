@@ -62,7 +62,9 @@ export default {
   },
   name: 'mainHeader',
   methods: {
-    logout: function(event) {
+    logout: async function(event) {
+      let _self = this
+      await _self.$http.post('/v1/api/signout', {})
       common.clearStoreData()
       this.$router.push({
         path: '/'
