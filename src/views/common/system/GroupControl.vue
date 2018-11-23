@@ -64,7 +64,7 @@
             </div>
             <div v-show="tableData.length > 0" class="form-group">
               <label>权限</label>
-              <ul id="domaintree" class="ztree"></ul>
+              <ul id="systemtree" class="ztree"></ul>
             </div>
           </div>
           <div class="modal-footer">
@@ -80,7 +80,7 @@
 </template>
 <script>
 const common = require('@/lib/common')
-const apiUrl = '/v1/api/common/system/DomainGroupControl/'
+const apiUrl = '/v1/api/common/system/GroupControl/'
 
 export default {
   data: function () {
@@ -102,7 +102,7 @@ export default {
         let retData = response.data.info
         _self.pagePara = JSON.parse(JSON.stringify(retData))
         _self.tableData = JSON.parse(JSON.stringify(retData.menuInfo))
-        let treeObj = $.fn.zTree.init($('#domaintree'), {
+        let treeObj = $.fn.zTree.init($('#systemtree'), {
           check: {
             enable: true,
             chkboxType: {
@@ -187,8 +187,8 @@ export default {
         return common.dealWarningCommon('请选择一个节点')
       }
 
-      let domaintreeObj = $.fn.zTree.getZTreeObj('domaintree')
-      domaintreeObj.checkAllNodes(false)
+      let systemtreeObj = $.fn.zTree.getZTreeObj('systemtree')
+      systemtreeObj.checkAllNodes(false)
       _self.nameA = ''
       _self.act = '1'
       $('#formPos').parsley().reset()
@@ -198,8 +198,8 @@ export default {
       let _self = this
       try {
         if ($('#formPos').parsley().isValid()) {
-          let domaintreeObj = $.fn.zTree.getZTreeObj('domaintree')
-          let nodes = domaintreeObj.getCheckedNodes(true)
+          let systemtreeObj = $.fn.zTree.getZTreeObj('systemtree')
+          let nodes = systemtreeObj.getCheckedNodes(true)
           if (_self.act === '1') {
             let workRow = {
               'usergroup_name': _self.nameA,
@@ -232,23 +232,23 @@ export default {
         })
 
         let retData = response.data.info
-        let domaintreeObj = $.fn.zTree.getZTreeObj('domaintree')
-        domaintreeObj.setting.check.chkboxType = {
+        let systemtreeObj = $.fn.zTree.getZTreeObj('systemtree')
+        systemtreeObj.setting.check.chkboxType = {
           'Y': 'p',
           'N': 'ps'
         }
-        domaintreeObj.checkAllNodes(false)
-        let nodes = domaintreeObj.getCheckedNodes(false)
+        systemtreeObj.checkAllNodes(false)
+        let nodes = systemtreeObj.getCheckedNodes(false)
 
         for (let i = 0; i < nodes.length; i++) {
           for (let j = 0; j < retData.groupMenu.length; j++) {
-            if (nodes[i].domainmenu_id === retData.groupMenu[j]) {
-              domaintreeObj.checkNode(nodes[i], true, true, false)
+            if (nodes[i].systemmenu_id === retData.groupMenu[j]) {
+              systemtreeObj.checkNode(nodes[i], true, true, false)
               break
             }
           }
         }
-        domaintreeObj.setting.check.chkboxType = {
+        systemtreeObj.setting.check.chkboxType = {
           'Y': 'ps',
           'N': 'ps'
         }
