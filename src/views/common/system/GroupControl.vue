@@ -1,89 +1,89 @@
 <template>
-<div>
-  <section class="content-header">
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
-      <li class="active">系统组维护</li>
-    </ol>
-  </section>
-  <section class="content">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="box box-info">
-          <div class="box-body">
-            <div class="margin form-inline">
-              <div class="form-group">
+  <div>
+    <section class="content-header">
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+        <li class="active">系统组维护</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-info">
+            <div class="box-body">
+              <div class="margin form-inline">
                 <div class="form-group">
-                  <button class="btn btn-primary btn-info" @click="addDep"><i class="glyphicon glyphicon-plus"></i> 增加权限组 </button>
-                  <button class="btn btn-primary btn-info" @click="addPos"> <i class="glyphicon glyphicon-plus"></i> 增加角色 </button>
-                  <button class="btn btn-primary btn-info" @click="editNode"> <i class="glyphicon glyphicon-plus"></i> 编辑 </button>
+                  <div class="form-group">
+                    <button class="btn btn-primary btn-info" @click="addDep"><i class="glyphicon glyphicon-plus"></i> 增加权限组 </button>
+                    <button class="btn btn-primary btn-info" @click="addPos"> <i class="glyphicon glyphicon-plus"></i> 增加角色 </button>
+                    <button class="btn btn-primary btn-info" @click="editNode"> <i class="glyphicon glyphicon-plus"></i> 编辑 </button>
+                  </div>
                 </div>
               </div>
+              <ul id="tree" class="ztree"></ul>
             </div>
-            <ul id="tree" class="ztree"></ul>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <div class="modal fade" id="DepModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">组</h4>
-        </div>
-        <form @submit.prevent="submitDep" id="formDep">
-          <div class="modal-body">
-            <div class="form-group">
-              <label>组名称</label>
-              <input class="form-control" v-model="nameA" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+    </section>
+    <div class="modal fade" id="DepModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">组</h4>
+          </div>
+          <form @submit.prevent="submitDep" id="formDep">
+            <div class="modal-body">
+              <div class="form-group">
+                <label>组名称</label>
+                <input class="form-control" v-model="nameA" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-info">
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info">
                 <i class="fa fa-fw fa-plus"></i>提交
-            </button>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="PosModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">角色</h4>
           </div>
-        </form>
+          <form @submit.prevent="submitPos" id="formPos">
+            <div class="modal-body">
+              <div class="form-group">
+                <label>角色名称</label>
+                <input class="form-control" v-model="nameA" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
+              </div>
+              <div v-show="tableData.length > 0" class="form-group">
+                <label>权限</label>
+                <ul id="systemtree" class="ztree"></ul>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info">
+                <i class="fa fa-fw fa-plus"></i>提交
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="PosModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">角色</h4>
-        </div>
-        <form @submit.prevent="submitPos" id="formPos">
-          <div class="modal-body">
-            <div class="form-group">
-              <label>角色名称</label>
-              <input class="form-control" v-model="nameA" data-parsley-required="true" maxlength="50" data-parsley-maxlength="50">
-            </div>
-            <div v-show="tableData.length > 0" class="form-group">
-              <label>权限</label>
-              <ul id="systemtree" class="ztree"></ul>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-info">
-                <i class="fa fa-fw fa-plus"></i>提交
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 </template>
 <script>
 const common = require('@/lib/common')
 const apiUrl = '/v1/api/common/system/GroupControl/'
 
 export default {
-  data: function () {
+  data: function() {
     return {
       pagePara: {},
       tableData: [],
@@ -93,7 +93,7 @@ export default {
     }
   },
   name: 'groupControl',
-  mounted: function () {
+  mounted: function() {
     let _self = this
 
     async function initPage() {
@@ -102,15 +102,19 @@ export default {
         let retData = response.data.info
         _self.pagePara = JSON.parse(JSON.stringify(retData))
         _self.tableData = JSON.parse(JSON.stringify(retData.menuInfo))
-        let treeObj = $.fn.zTree.init($('#systemtree'), {
-          check: {
-            enable: true,
-            chkboxType: {
-              'Y': 'ps',
-              'N': 'ps'
+        let treeObj = $.fn.zTree.init(
+          $('#systemtree'),
+          {
+            check: {
+              enable: true,
+              chkboxType: {
+                Y: 'ps',
+                N: 'ps'
+              }
             }
-          }
-        }, retData.menuInfo)
+          },
+          retData.menuInfo
+        )
         treeObj.expandAll(true)
         _self.getData()
         $('#formDep').parsley()
@@ -124,7 +128,7 @@ export default {
     initPage()
   },
   methods: {
-    getData: async function (event) {
+    getData: async function(event) {
       let _self = this
       try {
         let response = await _self.$http.post(apiUrl + 'search', {})
@@ -135,7 +139,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addDep: function (event) {
+    addDep: function(event) {
       let _self = this
       let nodeObj = $.fn.zTree.getZTreeObj('tree').getSelectedNodes()
       if (nodeObj && nodeObj.length > 0) {
@@ -146,24 +150,30 @@ export default {
       }
       _self.nameA = ''
       _self.act = '1'
-      $('#formDep').parsley().reset()
+      $('#formDep')
+        .parsley()
+        .reset()
       $('#DepModal').modal('show')
     },
-    submitDep: async function (event) {
+    submitDep: async function(event) {
       let _self = this
       try {
-        if ($('#formDep').parsley().isValid()) {
+        if (
+          $('#formDep')
+            .parsley()
+            .isValid()
+        ) {
           if (_self.act === '1') {
             let workRow = {
-              'usergroup_name': _self.nameA,
-              'parent_id': _self.actNode.usergroup_id,
-              'node_type': '00'
+              usergroup_name: _self.nameA,
+              parent_id: _self.actNode.usergroup_id,
+              node_type: '00'
             }
             await _self.$http.post(apiUrl + 'add', workRow)
           } else if (_self.act === '2') {
             let workRow = {
-              'usergroup_id': _self.actNode.usergroup_id,
-              'usergroup_name': _self.nameA
+              usergroup_id: _self.actNode.usergroup_id,
+              usergroup_name: _self.nameA
             }
             await _self.$http.post(apiUrl + 'modify', workRow)
             $('#DepModal').modal('hide')
@@ -175,7 +185,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    addPos: function (event) {
+    addPos: function(event) {
       let _self = this
       let nodeObj = $.fn.zTree.getZTreeObj('tree').getSelectedNodes()
       if (nodeObj && nodeObj.length > 0) {
@@ -191,28 +201,37 @@ export default {
       systemtreeObj.checkAllNodes(false)
       _self.nameA = ''
       _self.act = '1'
-      $('#formPos').parsley().reset()
+      $('#formPos')
+        .parsley()
+        .reset()
       $('#PosModal').modal('show')
     },
-    submitPos: async function (event) {
+    submitPos: async function(event) {
       let _self = this
       try {
-        if ($('#formPos').parsley().isValid()) {
+        if (
+          $('#formPos')
+            .parsley()
+            .isValid()
+        ) {
           let systemtreeObj = $.fn.zTree.getZTreeObj('systemtree')
           let nodes = systemtreeObj.getCheckedNodes(true)
           if (_self.act === '1') {
             let workRow = {
-              'usergroup_name': _self.nameA,
-              'parent_id': _self.actNode.usergroup_id,
-              'node_type': '01',
-              'menus': nodes
+              usergroup_name: _self.nameA,
+              parent_id: _self.actNode.usergroup_id,
+              node_type: '01',
+              menus: nodes
             }
             await _self.$http.post(apiUrl + 'add', workRow)
           } else if (_self.act === '2') {
             let workRow = {
-              'usergroup_id': _self.actNode.usergroup_id,
-              'usergroup_name': _self.nameA,
-              'menus': nodes
+              usergroup_id: _self.actNode.usergroup_id,
+              usergroup_name: _self.nameA,
+              menus: []
+            }
+            for (let n of nodes) {
+              workRow.menus.push({ systemmenu_id: n.systemmenu_id })
             }
             await _self.$http.post(apiUrl + 'modify', workRow)
             common.dealSuccessCommon('修改成功')
@@ -224,7 +243,7 @@ export default {
         common.dealErrorCommon(_self, error)
       }
     },
-    editNode: async function (event) {
+    editNode: async function(event) {
       let _self = this
       async function getCheckData(nodeObj) {
         let response = await _self.$http.post(apiUrl + 'getcheck', {
@@ -234,8 +253,8 @@ export default {
         let retData = response.data.info
         let systemtreeObj = $.fn.zTree.getZTreeObj('systemtree')
         systemtreeObj.setting.check.chkboxType = {
-          'Y': 'p',
-          'N': 'ps'
+          Y: 'p',
+          N: 'ps'
         }
         systemtreeObj.checkAllNodes(false)
         let nodes = systemtreeObj.getCheckedNodes(false)
@@ -249,8 +268,8 @@ export default {
           }
         }
         systemtreeObj.setting.check.chkboxType = {
-          'Y': 'ps',
-          'N': 'ps'
+          Y: 'ps',
+          N: 'ps'
         }
       }
       try {
@@ -263,11 +282,15 @@ export default {
         this.nameA = nodeObj[0].name
         _self.act = '2'
         if (nodeObj[0].node_type === '00') {
-          $('#formDep').parsley().reset()
+          $('#formDep')
+            .parsley()
+            .reset()
           $('#DepModal').modal('show')
         } else if (nodeObj[0].node_type === '01') {
           await getCheckData(nodeObj)
-          $('#formPos').parsley().reset()
+          $('#formPos')
+            .parsley()
+            .reset()
           $('#PosModal').modal('show')
         }
       } catch (error) {

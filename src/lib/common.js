@@ -774,7 +774,9 @@ exports.rowModifyWithT = (_self, act, row, key, tb) => {
 
 exports.rowDeleteWithApi = (_self, msg, apiUrl, table, row, key, callback) => {
   exports.dealConfrimCommon(msg, () => {
-    _self.$http.post(apiUrl, row).then(
+    let reqPara = {}
+    reqPara[key] = row[key]
+    _self.$http.post(apiUrl, reqPara).then(
       response => {
         table.bootstrapTable('remove', {
           field: key,
