@@ -18,6 +18,7 @@ export default new Router({
         { path: 'error401', component: resolve => require(['@/components/err401'], resolve) },
         { path: 'SystemApiControl', component: resolve => require(['@/views/common/system/SystemApiControl'], resolve) },
         { path: 'GroupControl', component: resolve => require(['@/views/common/system/GroupControl'], resolve) },
+        { path: 'SystemGroupApiControl', component: resolve => require(['@/views/common/system/SystemGroupApiControl'], resolve) },
         { path: 'OperatorControl', component: resolve => require(['@/views/common/system/OperatorControl'], resolve) },
         { path: 'UserSetting', component: resolve => require(['@/views/common/system/UserSetting'], resolve) }
         // { path: 'ResetPassword', component: resolve => require(['@/views/common/system/ResetPassword'], resolve) }
