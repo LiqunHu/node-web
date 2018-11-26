@@ -221,8 +221,12 @@ export default {
               usergroup_name: _self.nameA,
               parent_id: _self.actNode.usergroup_id,
               node_type: '01',
-              menus: nodes
+              menus: []
             }
+            for (let n of nodes) {
+              workRow.menus.push({ systemmenu_id: n.systemmenu_id })
+            }
+
             await _self.$http.post(apiUrl + 'add', workRow)
           } else if (_self.act === '2') {
             let workRow = {
