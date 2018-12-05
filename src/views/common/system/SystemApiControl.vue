@@ -2,7 +2,11 @@
   <div>
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
+        <li>
+          <a href="#">
+            <i class="fa fa-dashboard"></i> 系统管理
+          </a>
+        </li>
         <li class="active">系统菜单维护</li>
       </ol>
     </section>
@@ -113,11 +117,12 @@
             <h4 class="modal-title">图标选择</h4>
           </div>
           <div class="modal-body">
-            <table id="iconTable" data-height="299" data-toggle="table">
-            </table>
+            <table id="iconTable" data-height="299" data-toggle="table"></table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-fw fa-close"></i>关闭</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">
+              <i class="fa fa-fw fa-close"></i>关闭
+            </button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -221,7 +226,9 @@ export default {
         }
         if (nodeObj[0].node_type === '01') return common.dealWarningCommon('菜单下不允许新增')
         _self.actNode = JSON.parse(JSON.stringify(nodeObj[0]))
-      } else return common.dealWarningCommon('请选择一个节点')
+      } else {
+        return common.dealWarningCommon('请选择一个节点')
+      }
       $('#formF')
         .parsley()
         .reset()
